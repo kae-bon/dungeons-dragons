@@ -39,7 +39,7 @@ VALUES ('Alchemist', 1), ('Armorer', 1), ('Artillerist', 1), ('Battle Smith', 1)
 
 INSERT INTO characters (user_id, character_name, character_race, current_level, alignment, profile_pic)
 VALUES (2, 'Neme', 'Satyr', 5, 'Chaotic Neutral', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150573/x3hhbbomsbf1pa4ybw60.jpg'),
-(2, 'Rhywyn', 'Halfling', 5, 'none', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg'),
+(2, 'Rhywyn', 'Halfling', 5, 'None', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg'),
 (2, 'Chicken', 'Tiefling', 3, 'Chaotic Good', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714153760/dswrsvil5g9i65xhakof.jpg');
 
 INSERT INTO character_classes (character_id, class_id, subclass_id)

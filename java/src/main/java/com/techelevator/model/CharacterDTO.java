@@ -1,6 +1,5 @@
 package com.techelevator.model;
 
-import java.util.List;
 import java.util.Map;
 
 public class CharacterDTO {
@@ -8,19 +7,21 @@ public class CharacterDTO {
     private int id;
     private String name;
     private String race;
+    private int currentLevel;
     private String alignment;
-    private String profile_pic;
+    private String profilePic;
     private Map<String, String> classesSubclasses;
 
     public CharacterDTO() {}
-    public CharacterDTO(int userId, int id, String name, String race, String alignment, String profile_pic, Map<String, String> classesSubclasses) {
+    public CharacterDTO(int userId, int id, String name, String race, String alignment, String profilePic, Map<String, String> classesSubclasses, int currentLevel) {
         this.userId = userId;
         this.id = id;
         this.name = name;
         this.race = race;
         this.alignment = alignment;
-        this.profile_pic = profile_pic;
+        this.profilePic = profilePic;
         this.classesSubclasses = classesSubclasses;
+        this.currentLevel = currentLevel;
     }
 
     public int getId() {
@@ -55,12 +56,12 @@ public class CharacterDTO {
         this.alignment = alignment;
     }
 
-    public String getProfile_pic() {
-        return profile_pic;
+    public String getProfilePic() {
+        return profilePic;
     }
 
-    public void setProfile_pic(String profile_pic) {
-        this.profile_pic = profile_pic;
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public Map<String, String> getClassesSubclasses() {
@@ -77,5 +78,13 @@ public class CharacterDTO {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
     }
 }
