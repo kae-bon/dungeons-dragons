@@ -17,6 +17,7 @@ CREATE TABLE characters (
 	character_race VARCHAR(50) NOT NULL,
 	current_level INTEGER NOT NULL,
 	alignment VARCHAR(50) NOT NULL,
+	profile_pic VARCHAR(200) NOT NULL,
 
 	CONSTRAINT PK_character PRIMARY KEY (character_id),
 	CONSTRAINT FK_userid FOREIGN KEY (user_id) REFERENCES users (user_id),

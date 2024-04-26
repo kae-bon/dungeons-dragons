@@ -36,10 +36,10 @@ VALUES ('Alchemist', 1), ('Armorer', 1), ('Artillerist', 1), ('Battle Smith', 1)
 ('Bladesinging', 13), ('Chronurgy Magic', 13), ('Graviturgy Magic', 13), ('Order of Scribes', 13), ('School of Abjuration', 13), ('School of Conjuration', 13),
 ('School of Divination', 13), ('School of Enchantment', 13), ('School of Evocation', 13), ('School of Illusion', 13), ('School of Necromancy', 13), ('School of Transmutation', 13), ('War Magic', 13);
 
-INSERT INTO characters (user_id, character_name, character_race, current_level, alignment)
-VALUES (2, 'Neme', 'Satyr', 5, 'Chaotic Neutral'),
-(2, 'Rhywyn', 'Halfling', 5, 'none'),
-(2, 'Chicken', 'Tiefling', 3, 'Chaotic Good');
+INSERT INTO characters (user_id, character_name, character_race, current_level, alignment, profile_pic)
+VALUES (2, 'Neme', 'Satyr', 5, 'Chaotic Neutral', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150573/x3hhbbomsbf1pa4ybw60.jpg'),
+(2, 'Rhywyn', 'Halfling', 5, 'none', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg'),
+(2, 'Chicken', 'Tiefling', 3, 'Chaotic Good', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714153760/dswrsvil5g9i65xhakof.jpg');
 
 INSERT INTO character_classes (character_id, class_id, subclass_id)
 VALUES (1, 11, 91), (2, 10, 87), (2, 3, 19),
