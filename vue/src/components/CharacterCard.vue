@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <img :src="character.profilePic" class="card-img-top" alt="character img">
         <div class="card-body">
             <h5 class="card-title">{{ character.name }}</h5>
             <p class="card-text">{{character.race}}</p>
@@ -11,10 +11,18 @@
 
 <script>
     export default {
-        props: ['character']
+        props: ['character'],
+        data() {
+            return {
+                charImg: this.character.profilePic
+            }
+        }
     }
 </script>
 
 <style scoped>
 
+.card {
+    width: 45%;
+}
 </style>

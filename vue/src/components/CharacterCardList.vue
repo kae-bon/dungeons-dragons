@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="d-flex flex-wrap column-gap-2 row-gap-2 justify-content-center">
         <CharacterCard v-for="character in characters" :key="character.id" :character="character" />
     </div>
 </template>
