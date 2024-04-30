@@ -1,7 +1,5 @@
 <template>
-    <div class="container mt-3">
-
-    </div>
+    <footer class="text-center pt-2 pb-2">thanks for stopping by!</footer>
 </template>
 
 <script>

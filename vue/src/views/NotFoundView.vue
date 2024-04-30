@@ -1,6 +1,6 @@
 <template>
-    <div class="container mt-3">
-
+    <div>
+        <h2>this page could not be loaded</h2>
     </div>
 </template>
 

@@ -9058,6 +9058,7 @@ textarea.form-control-lg {
 
 body {
   background-color: #fdfdfc;
+  font-family: "Poppins", sans-serif;
 }
 
 i {
@@ -9065,6 +9066,14 @@ i {
 }
 
 .navbar {
+  background-color: #f4a261;
+}
+
+a, h1, .h1 {
+  font-family: "Staatliches", sans-serif;
+}
+
+footer {
   background-color: #f4a261;
 }
 

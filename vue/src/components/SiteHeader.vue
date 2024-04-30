@@ -38,7 +38,6 @@ i {
 }
 
 a {
-    font-family: 'Staatliches', sans-serif;
     font-size: 1.2rem;
 }
 

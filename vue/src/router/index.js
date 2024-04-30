@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import CharactersView from '../views/CharactersView.vue';
+import NotFoundView from '../views/NotFoundView.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -56,7 +57,8 @@ const routes = [
     meta: {
       requiresAuth: false
     }
-  }
+  },
+  { path: '/:notfound(.*)*', name: 'not-found', component: NotFoundView },
 ];
 
 // Create the router

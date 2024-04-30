@@ -1,5 +1,5 @@
 <template>
-  <div id="register" class="text-center">
+  <div id="register" class="text-center container mt-3">
     <form v-on:submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
