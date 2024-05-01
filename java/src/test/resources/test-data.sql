@@ -42,8 +42,8 @@ VALUES (2, 'Neme', 'Satyr', 5, 'Chaotic Neutral', 'https://res.cloudinary.com/dc
 (2, 'Rhywyn', 'Halfling', 5, 'None', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg'),
 (2, 'Chicken', 'Tiefling', 3, 'Chaotic Good', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714153760/dswrsvil5g9i65xhakof.jpg');
 
-INSERT INTO character_classes (character_id, class_id, subclass_id)
-VALUES (1, 11, 91), (2, 10, 87), (2, 3, 19),
-(3, 5, 37);
+INSERT INTO character_classes (character_id, class_id, subclass_id, class_level)
+VALUES (1, 11, 91, 5), (2, 10, 87, 2), (2, 3, 19, 3),
+(3, 5, 37, 3);
 
 COMMIT TRANSACTION;

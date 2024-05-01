@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.CharacterDTO;
+import com.techelevator.model.ClassDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -29,5 +30,5 @@ public interface CharacterDao {
      * @param id character id
      * @return Map of class, subclass
      */
-    public Map<String, String> getClassesAndSubclassesByCharacterId(int id);
+    public List<ClassDTO> getClassesAndSubclassesByCharacterId(int id);
 }

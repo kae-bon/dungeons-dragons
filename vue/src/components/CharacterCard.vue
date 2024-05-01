@@ -3,7 +3,7 @@
         <img :src="character.profilePic" class="card-img-top" alt="character img">
         <div class="card-body">
             <h5 class="card-title mb-1">{{ character.name }}</h5>
-            <span v-for="(value, key) in character.classesSubclasses" :key="value" class="badge text-bg-primary mb-0">{{ value }} {{ key }}</span>
+            <span v-for="charClass in character.classesSubclasses" :key="charClass.characterClass" class="badge text-bg-primary mb-0">{{ charClass.subclass }} {{ charClass.characterClass }}</span>
             <p class="card-text mt-3">{{character.race}}</p>       
         </div>
         <div class="text-center mt-2 mb-3">

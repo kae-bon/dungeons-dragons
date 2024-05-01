@@ -4,7 +4,7 @@
             <img :src="character.profilePic" alt="">
             <div class="w-75">
                 <h1>{{ character.name }}</h1>
-                <p class="class fst-italic" v-for="(value, key) in character.classesSubclasses" :key="value">{{ value }} {{ key }}</p>
+                <p class="class fst-italic" v-for="charClass in character.classesSubclasses" :key="charClass.characterClass">{{ charClass.subclass }} {{ charClass.characterClass }}, {{ charClass.classLevel }}</p>
                 <div class="info mt-2">
                     <p class="fw-bold">character level</p>
                     <p class="mb-3">{{ character.currentLevel }}</p>

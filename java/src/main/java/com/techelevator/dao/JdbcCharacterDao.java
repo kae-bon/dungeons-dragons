@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.ClassDTO;
 import com.techelevator.model.CharacterDTO;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -9,7 +10,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,9 +51,11 @@ public class JdbcCharacterDao implements CharacterDao {
         return characters;
     }
 
-    public Map<String, String> getClassesAndSubclassesByCharacterId(int id) {
-        Map<String, String> classesSubclasses = new HashMap<>();
-        String sql = "SELECT class_name, subclass_name\n" +
+    public List<ClassDTO> getClassesAndSubclassesByCharacterId(int id) {
+//        Map<String, String> classesSubclasses = new HashMap<>();
+        List<ClassDTO> classesSubclasses = new ArrayList<>();
+        ClassDTO classDTO = null;
+        String sql = "SELECT class_name, subclass_name, class_level\n" +
                 "FROM classes\n" +
                 "JOIN character_classes AS cc ON cc.class_id = classes.class_id\n" +
                 "JOIN subclasses AS s ON s.subclass_id = cc.subclass_id\n" +
@@ -62,8 +64,10 @@ public class JdbcCharacterDao implements CharacterDao {
         try {
             SqlRowSet results = jdbc.queryForRowSet(sql, id);
             while (results.next()) {
-                classesSubclasses.put(results.getString("class_name"),
-                                    results.getString("subclass_name"));
+                classDTO = new ClassDTO(results.getString("class_name"),
+                                        results.getString("subclass_name"),
+                                        results.getInt("class_level"));
+                classesSubclasses.add(classDTO);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Cannot connect to server - please try again later.");
@@ -84,4 +88,6 @@ public class JdbcCharacterDao implements CharacterDao {
                                                 results.getInt("current_level"));
         return character;
     }
+
+
 }
