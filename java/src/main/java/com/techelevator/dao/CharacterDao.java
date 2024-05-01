@@ -31,4 +31,11 @@ public interface CharacterDao {
      * @return Map of class, subclass
      */
     public List<ClassDTO> getClassesAndSubclassesByCharacterId(int id);
+    /**
+     * edits the specified character in the database
+     *
+     * @param id character id
+     * @return edited character
+     */
+    public CharacterDTO editCharacter(CharacterDTO updatedCharacter);
 }

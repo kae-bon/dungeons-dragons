@@ -32,6 +32,15 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
     }
 
     @Test
+    public void get_character_gets_character() {
+        CharacterDTO actual = sut.getCharacterById(1);
+        assertCharactersMatch(CHARACTER_ONE, actual);
+
+        actual = sut.getCharacterById(2);
+        assertCharactersMatch(CHARACTER_TWO, actual);
+    }
+
+    @Test
     public void get_characters_by_user_id() {
         List<CharacterDTO> expected = new ArrayList<>();
         expected.add(CHARACTER_ONE);
@@ -60,6 +69,20 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
         Assert.assertTrue(expected.size() == 2);
         actual = sut.getClassesAndSubclassesByCharacterId(2);
         assertClassSubclassMatch(expected.get(0), actual.get(0));
+    }
+
+    @Test
+    public void edit_character_edits_character() {
+        CharacterDTO characterToUpdate = sut.getCharacterById(1);
+
+        characterToUpdate.setAlignment("Chaotic Evil");
+        characterToUpdate.setCurrentLevel(6);
+
+        CharacterDTO updatedCharacter = sut.editCharacter(characterToUpdate);
+        CharacterDTO retrievedCharacter = sut.getCharacterById(updatedCharacter.getId());
+
+        assertCharactersMatch(characterToUpdate, retrievedCharacter);
+        assertCharactersMatch(updatedCharacter, retrievedCharacter);
     }
 
     private void assertCharactersMatch(CharacterDTO expected, CharacterDTO actual) {
