@@ -1,9 +1,7 @@
 <template>
-    <div class="container mt-3">
-        <h1>your characters</h1>
-        
+    <div class="container">
+        <h1 class="mb-4">your characters</h1>
             <CharacterCardList/>
-        
     </div>
 </template>
 

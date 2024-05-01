@@ -66,3 +66,8 @@ footer {
     background-color: $orange;
 }
 
+img {
+    border: $card-border-width solid $card-border-color;
+    border-radius: $card-border-radius;
+}
+
