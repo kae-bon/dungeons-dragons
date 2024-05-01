@@ -1,5 +1,5 @@
 <template>
-  <h1>Logout</h1>
+  <h1 class="container mt-3">Logout</h1>
 </template>
 
 <script>

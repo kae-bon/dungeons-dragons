@@ -4,8 +4,8 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 INSERT INTO classes (class_name)
-VALUES ('artificer'),('barbarian'), ('bard'), ('cleric'), ('druid'), ('fighter'), ('monk'),
-	   ('paladin'), ('ranger'), ('rogue'), ('sorcerer'), ('warlock'), ('wizard');
+VALUES ('Artificer'),('Barbarian'), ('Bard'), ('Cleric'), ('Druid'), ('Fighter'), ('Monk'),
+	   ('Paladin'), ('Ranger'), ('Rogue'), ('Sorcerer'), ('Warlock'), ('Wizard');
 
 INSERT INTO subclasses (subclass_name, class_id)
 VALUES ('Alchemist', 1), ('Armorer', 1), ('Artillerist', 1), ('Battle Smith', 1),
@@ -37,12 +37,12 @@ VALUES ('Alchemist', 1), ('Armorer', 1), ('Artillerist', 1), ('Battle Smith', 1)
 ('School of Divination', 13), ('School of Enchantment', 13), ('School of Evocation', 13), ('School of Illusion', 13), ('School of Necromancy', 13), ('School of Transmutation', 13), ('War Magic', 13);
 
 INSERT INTO characters (user_id, character_name, character_race, current_level, alignment, profile_pic)
-VALUES (2, 'Neme', 'Satyr', 5, 'Chaotic Neutral', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150573/x3hhbbomsbf1pa4ybw60.jpg'),
-(2, 'Rhywyn', 'Halfling', 5, 'none', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg'),
-(2, 'Chicken', 'Tiefling', 3, 'Chaotic Good', 'https://res.cloudinary.com/dccsx3iht/image/upload/v1714153760/dswrsvil5g9i65xhakof.jpg');
+VALUES (1, 'Neme', 'Satyr', 5, 'Chaotic Neutral', 'https://res.cloudinary.com/dccsx3iht/image/upload/c_crop,g_auto,h_500,w_500/v1714150573/x3hhbbomsbf1pa4ybw60.jpg'),
+(1, 'Rhywyn', 'Halfling', 5, 'none', 'https://res.cloudinary.com/dccsx3iht/image/upload/c_crop,g_auto,h_500,w_500/v1714150698/qmzaf08mchmqsoeajnif.jpg'),
+(1, 'Chicken', 'Tiefling', 3, 'Chaotic Good', 'https://res.cloudinary.com/dccsx3iht/image/upload/c_crop,g_auto,h_500,w_500/v1714153760/dswrsvil5g9i65xhakof.jpg');
 
-INSERT INTO character_classes (character_id, class_id, subclass_id)
-VALUES (1, 11, 91), (2, 10, 87), (2, 3, 19),
-(3, 5, 37);
+INSERT INTO character_classes (character_id, class_id, subclass_id, class_level)
+VALUES (1, 11, 91, 5), (2, 10, 87, 3), (2, 3, 19, 2),
+(3, 5, 37, 3);
 
 COMMIT TRANSACTION;

@@ -45,6 +45,7 @@ CREATE TABLE character_classes (
 	character_id INTEGER NOT NULL,
 	class_id INTEGER NOT NULL,
 	subclass_id INTEGER NOT NULL,
+	class_level INTEGER NOT NULL,
 
 	CONSTRAINT PK_char_class PRIMARY KEY (char_class_id),
 	CONSTRAINT FK_class_id FOREIGN KEY (class_id) REFERENCES classes (class_id),

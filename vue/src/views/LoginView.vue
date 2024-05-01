@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" class="container mt-3">
     <form v-on:submit.prevent="login">
       <h1 >Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
