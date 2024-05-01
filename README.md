@@ -1,12 +1,9 @@
-# Final Capstone
-​
-This directory contains all of the starter projects for the final capstone.
-​
-Each project contains instructions that provides information about the starting code and explains how to get started with the final capstone project.
+# ADVENTURER'S ALMANAC
 
-1. Click "Use this template" > "Create a new repository".
-2. Leave "Include all branches" unckecked.
-3. Give your repo a sensible name and description.
-4. Click "Create repository".
-5. Finally, clone the repository to your local machine.
-Happy coding!
+A character journal for your dungeons & dragons characters - register your characters and include information such as their name, current level, and even upload a 
+profile pic!
+
+**A personal project built using Java, Spring Boot, PostgreSQL, Vue.js, and Bootstrap**
+
+
+WELCOME ADVENTURER'S !
