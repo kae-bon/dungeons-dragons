@@ -60,7 +60,7 @@ const routes = [
     }
   },
   {
-    path: "/characters/:name",
+    path: "/characters/:id",
     name: "character-details",
     component: CharacterDetailsView,
     meta: {

@@ -3,8 +3,11 @@ import axios from 'axios';
 export default {
 
   getAllCharacters() {
-    console.log('hello');
     return axios.get('/users/characters');
   },
+
+  editCharacter(id, character) {
+    return axios.put(`/characters/${id}`, character)
+  }
 
 }
