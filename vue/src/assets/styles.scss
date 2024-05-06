@@ -67,6 +67,10 @@ footer {
 }
 
 img {
+    border-bottom: $card-border-width solid $card-border-color;
+}
+
+img.details-pic {
     border: $card-border-width solid $card-border-color;
     border-radius: $card-border-radius;
 }

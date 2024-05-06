@@ -25,6 +25,7 @@
 
 <style scoped>
 
+
 .card {
     width: 60%;
 }

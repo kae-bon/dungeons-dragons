@@ -9078,6 +9078,10 @@ footer {
 }
 
 img {
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color-translucent);
+}
+
+img.details-pic {
   border: var(--bs-border-width) solid var(--bs-border-color-translucent);
   border-radius: var(--bs-border-radius);
 }
