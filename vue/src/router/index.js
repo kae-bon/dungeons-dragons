@@ -9,6 +9,7 @@ import RegisterView from '../views/RegisterView.vue';
 import CharactersView from '../views/CharactersView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import CharacterDetailsView from '../views/CharacterDetailsView.vue';
+import EnterCharacterInfoView from '../views/EnterCharacterInfoView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -60,9 +61,17 @@ const routes = [
     }
   },
   {
-    path: "/characters/:id",
+    path: "/characters/:name",
     name: "character-details",
     component: CharacterDetailsView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/characters/:name/edit",
+    name: "edit-character",
+    component: EnterCharacterInfoView,
     meta: {
       requiresAuth: true
     }

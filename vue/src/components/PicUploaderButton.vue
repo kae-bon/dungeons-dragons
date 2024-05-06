@@ -43,5 +43,6 @@ export default {
 <style scoped>
 button {
   color: #fcfcff;
+  font-size: .8rem;
 }
 </style>

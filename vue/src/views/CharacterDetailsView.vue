@@ -1,5 +1,19 @@
 <template>
     <div class="container">
+        <ul class="nav nav-pills mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">{{character.name}}</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">manage character</a>
+                <ul class="dropdown-menu">
+                    <li><router-link class="dropdown-item" v-bind:to="{ name: 'edit-character' }">edit profile</router-link></li>
+                    <li><a class="dropdown-item" href="#">manage classes</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#">delete character</a></li>
+                </ul>
+            </li>
+        </ul>
         <div class="d-flex flex-lg-row column-gap-lg-3 row-gap-2 flex-column align-items-center align-items-lg-stretch">
             <img :src="character.profilePic" class="details-pic">
             <div class="w-75 profile d-flex flex-column justify-content-between">
@@ -15,37 +29,37 @@
                             <p class="mb-3">{{ character.alignment }}</p>
                         </div>
                 </div>
-                <button class="btn btn-primary align-self-center align-self-lg-start" data-bs-toggle="modal" 
-                data-bs-target="#exampleModal">edit character</button>
-            </div>
                 
+            </div> 
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <CharacterOptionsModal />
-        </div>
+        
     </div>
     
 </template>
 
 <script>
 import CharacterService from '../services/CharacterService';
-import CharacterOptionsModal from '../components/CharacterOptionsModal.vue';
-
 
     export default {
-        components: {CharacterOptionsModal},
+        components: {},
         data() {
             return {
-                character: {}
+                character: {},
+                editcharacter: false,
+            }
+    },
+    methods: {
+        closeModal() {
+            let modal = document.getElementById('optionsModal');
+            modal.click();
             }
         },
         created() {
             CharacterService.getAllCharacters().then(response => {
                 this.$store.commit("SET_CHARACTERS", response.data);
-                this.character = this.$store.state.characters.find(c => c.id == this.$route.params.id);
+                this.character = this.$store.state.characters.find(c => c.name == this.$route.params.name);
             })
         }, 
-    
     }
 </script>
 

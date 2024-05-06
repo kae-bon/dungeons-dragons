@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex flex-column align-items-center row-gap-2">
-                <button class="btn btn-primary w-50"><i class="fa-solid fa-scroll"></i> edit profile info</button> 
+                <router-link class="btn btn-primary w-50" @click="close()" v-bind:to="{ name: 'edit-character' }"><i class="fa-solid fa-scroll"></i> edit profile info</router-link>
                 <button class="btn btn-primary w-50"><i class="fa-solid fa-hat-wizard"></i> manage classes</button>
                 <button class="btn btn-primary w-50"><i class="fa-solid fa-skull-crossbones"></i> delete character</button>
             </div>
@@ -20,7 +20,12 @@
 
 
 export default {
-    
+    methods: {
+        close() {
+            this.$emit('close')
+        },
+        
+    }
 }
 </script>
 

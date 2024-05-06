@@ -37,8 +37,10 @@ public class CharacterController {
     }
 
     @PutMapping(path="/characters/{id}")
-    public CharacterDTO editCharacterInfo(@PathVariable int id, @RequestBody CharacterDTO character) {
+    public CharacterDTO editCharacterInfo(@PathVariable int id, @RequestBody CharacterDTO character, Principal principal) {
         try {
+            User user = userDao.getUserByUsername(principal.getName());
+            character.setUserId(user.getId());
             character.setId(id);
             return characterDao.editCharacter(character);
         } catch (DaoException e) {
