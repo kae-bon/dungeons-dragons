@@ -36,6 +36,15 @@ public class CharacterController {
         }
     }
 
+    @GetMapping(path="/characters/{id}")
+    public CharacterDTO getCharacterById(@PathVariable int id) {
+        try {
+            return characterDao.getCharacterById(id);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
+        }
+    }
+
     @PutMapping(path="/characters/{id}")
     public CharacterDTO editCharacterInfo(@PathVariable int id, @RequestBody CharacterDTO character, Principal principal) {
         try {

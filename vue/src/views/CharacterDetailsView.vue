@@ -1,9 +1,6 @@
 <template>
     <div class="container">
         <ul class="nav nav-pills mb-3">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">{{character.name}}</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">manage character</a>
                 <ul class="dropdown-menu">
@@ -45,7 +42,7 @@ import CharacterService from '../services/CharacterService';
         data() {
             return {
                 character: {},
-                editcharacter: false,
+                
             }
     },
     methods: {

@@ -8,6 +8,10 @@ export default {
 
   editCharacter(id, character) {
     return axios.put(`/characters/${id}`, character)
+  },
+
+  getCharacterById(id) {
+    return axios.get(`/characters/${id}`);
   }
 
 }

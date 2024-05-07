@@ -1,5 +1,10 @@
 <template>
+    <div class="container">
+        <ul class="nav nav-pills mb-3">
+            <li><router-link class="nav-link" v-bind:to="{ name: 'character-details', params: {name: character.name} }">back to {{ character.name }}'s profile</router-link></li>   
+        </ul>
     <div class="container w-50">
+        
         <h1 class="mb-3">edit {{ character.name }}</h1>
             <form @submit.prevent="saveChanges">
                     <div class="form-floating mb-3">
@@ -10,32 +15,41 @@
                         <input type="text" class="form-control" id="raceInput" placeholder="satyr" v-model="editedCharacter.race">
                         <label for="raceInput">race</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" min="1" max="20" class="form-control" id="currentLevelInput" placeholder="5" v-model.number="editedCharacter.currentLevel">
-                        <label for="currentLevelInput">level</label>
+
+                    <div class="row mb-3">
+                        <div class="col-lg">
+                            <div class="form-floating mb-3">
+                                <input type="number" min="1" max="20" class="form-control" id="currentLevelInput" placeholder="5" v-model.number="editedCharacter.currentLevel">
+                                <label for="currentLevelInput">level</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="form-floating mb-3"> 
+                                <select class="form-select" id="selectAlignment" aria-label="alignment" v-model="editedCharacter.alignment">
+                                    <option disabled>---</option>
+                                    <option value="lawful good">lawful good</option>
+                                    <option value="neutral good">neutral good</option>
+                                    <option value="chaotic good">chaotic good</option>
+                                    <option value="lawful neutral">lawful neutral</option>
+                                    <option value="true neutral">true neutral</option>
+                                    <option value="chaotic neutral">chaotic neutral</option>
+                                    <option value="lawful evil">lawful evil</option>
+                                    <option value="neutral evil">neutral evil</option>
+                                    <option value="chaotic evil">chaotic evil</option>
+                                    <option value="unaligned">unaligned</option>
+                                </select>
+                                <label for="selectAlignment">alignment</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-floating mb-3"> 
-                        <select class="form-select" id="selectAlignment" aria-label="alignment" v-model="editedCharacter.alignment">
-                            <option selected disabled>---</option>
-                            <option value="lawful good">lawful good</option>
-                            <option value="neutral good">neutral good</option>
-                            <option value="chaotic good">chaotic good</option>
-                            <option value="lawful neutral">lawful neutral</option>
-                            <option value="true neutral">true neutral</option>
-                            <option value="chaotic neutral">chaotic neutral</option>
-                            <option value="lawful evil">lawful evil</option>
-                            <option value="neutral evil">neutral evil</option>
-                            <option value="chaotic evil">chaotic evil</option>
-                            <option value="unaligned">unaligned</option>
-                        </select>
-                        <label for="selectAlignment">alignment</label>
-                    </div>
-                    <div class="d-flex flex-column align-items-center mb-3">
+                    
+                    <div class="d-flex flex-column align-items-center img-select">
                         <PicUploaderButton id="picButton" class="mb-2" />
                         <img :src="character.profilePic" class="details-pic">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">save changes</button>
             </form>
+        </div>
         </div>
 </template>
 
@@ -48,19 +62,15 @@ import CharacterService from '../services/CharacterService';
     props: ['character'],
     data() {
         return {
-            editedCharacter: {
-                name: this.character.name,
-                race: this.character.race,
-                currentLevel: this.character.currentLevel,
-                alignment: this.character.alignment,
-                classesSubclasses: this.character.classesSubclasses,
-                userId: this.character.userId
-            }
+            editedCharacter: {},
         }
     },
     created() {
-            
-        }, 
+        CharacterService.getAllCharacters().then(response => {
+                this.$store.commit("SET_CHARACTERS", response.data);
+                this.editedCharacter = this.$store.state.characters.find(c => c.name == this.$route.params.name);
+            })
+    },
     methods: {
         saveChanges() {
             if (this.editedCharacter.name == null || this.editedCharacter.name == "") this.editedCharacter.name = this.character.name;
@@ -75,8 +85,7 @@ import CharacterService from '../services/CharacterService';
                     CharacterService.getAllCharacters().then(response => {
                         this.$store.commit("SET_CHARACTERS", response.data);
                     })
-                    console.log("whoo")
-                    this.$router.push({ name: 'character-details', params: {name: this.character.name} })
+                    this.$router.push({ name: 'character-details', params: {name: this.editedCharacter.name} })
                 }
             }).catch(error => {
                 if (error.response) {
@@ -95,5 +104,20 @@ import CharacterService from '../services/CharacterService';
 <style scoped>
 img {
     width: 80%;
+}
+
+.img-select {
+        margin-bottom: 2rem;
+    }
+
+@media screen and ( min-width: 750px ) {
+    img {
+        width: 50%;
+    }
+
+    .img-select {
+        margin-bottom: 3rem;
+    }
+    
 }
 </style>
