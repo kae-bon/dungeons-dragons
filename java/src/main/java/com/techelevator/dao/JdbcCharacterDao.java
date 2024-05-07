@@ -16,9 +16,11 @@ import java.util.Map;
 @Component
 public class JdbcCharacterDao implements CharacterDao {
     JdbcTemplate jdbc;
+    JdbcClassDao classDao;
 
-    public JdbcCharacterDao(JdbcTemplate jdbc) {
+    public JdbcCharacterDao(JdbcTemplate jdbc, JdbcClassDao classDao) {
         this.jdbc = jdbc;
+        this.classDao = classDao;
     }
 
     @Override
@@ -67,32 +69,6 @@ public class JdbcCharacterDao implements CharacterDao {
         return characters;
     }
 
-    public List<ClassDTO> getClassesAndSubclassesByCharacterId(int id) {
-//        Map<String, String> classesSubclasses = new HashMap<>();
-        List<ClassDTO> classesSubclasses = new ArrayList<>();
-        ClassDTO classDTO = null;
-        String sql = "SELECT class_name, subclass_name, class_level\n" +
-                "FROM classes\n" +
-                "JOIN character_classes AS cc ON cc.class_id = classes.class_id\n" +
-                "JOIN subclasses AS s ON s.subclass_id = cc.subclass_id\n" +
-                "JOIN characters ON cc.character_id = characters.character_id\n" +
-                "WHERE characters.character_id = ?;";
-        try {
-            SqlRowSet results = jdbc.queryForRowSet(sql, id);
-            while (results.next()) {
-                classDTO = new ClassDTO(results.getString("class_name"),
-                                        results.getString("subclass_name"),
-                                        results.getInt("class_level"));
-                classesSubclasses.add(classDTO);
-            }
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Cannot connect to server - please try again later.");
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Couldn't find any characters registered for that user id.");
-        }
-        return classesSubclasses;
-    }
-
     @Override
     public CharacterDTO editCharacter(CharacterDTO character) {
         CharacterDTO updatedCharacter = null;
@@ -124,7 +100,7 @@ public class JdbcCharacterDao implements CharacterDao {
                                                 results.getString("character_race"),
                                                 results.getString("alignment"),
                                                 results.getString("profile_pic"),
-                                                this.getClassesAndSubclassesByCharacterId(results.getInt("character_id")),
+                                                classDao.getClassesAndSubclassesByCharacterId(results.getInt("character_id")),
                                                 results.getInt("current_level"));
         return character;
     }

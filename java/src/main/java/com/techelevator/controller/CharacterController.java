@@ -1,9 +1,11 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.CharacterDao;
+import com.techelevator.dao.ClassDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.CharacterDTO;
+import com.techelevator.model.ClassDTO;
 import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,10 +21,12 @@ import java.util.List;
 public class CharacterController {
     CharacterDao characterDao;
     UserDao userDao;
+    ClassDao classDao;
 
-    public CharacterController(CharacterDao characterDao, UserDao userDao) {
+    public CharacterController(CharacterDao characterDao, UserDao userDao, ClassDao classDao) {
         this.characterDao = characterDao;
         this.userDao = userDao;
+        this.classDao = classDao;
     }
 
     @GetMapping(path="/users/characters")
@@ -53,7 +57,17 @@ public class CharacterController {
             character.setId(id);
             return characterDao.editCharacter(character);
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not edit this character - try again later.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not edit this character.");
+        }
+    }
+
+    @PostMapping(path="/characters/{id}/classes")
+    public CharacterDTO addClassSubclassToCharacter(@PathVariable int id, @RequestBody ClassDTO classDTO) {
+        try {
+            classDao.addNewClassAndSubclassByCharacterId(id, classDTO);
+            return characterDao.getCharacterById(id);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find this character.");
         }
     }
 }

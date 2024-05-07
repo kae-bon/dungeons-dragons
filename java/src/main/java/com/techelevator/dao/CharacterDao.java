@@ -23,15 +23,6 @@ public interface CharacterDao {
      */
     public List<CharacterDTO> getCharactersByUserId(int id);
     /**
-     * retrieves a map containing all of the classes & subclasses
-     * of a particular character, with the class being the key
-     * and the subclass being the value
-     *
-     * @param id character id
-     * @return Map of class, subclass
-     */
-    public List<ClassDTO> getClassesAndSubclassesByCharacterId(int id);
-    /**
      * edits the specified character in the database
      *
      * @param id character id

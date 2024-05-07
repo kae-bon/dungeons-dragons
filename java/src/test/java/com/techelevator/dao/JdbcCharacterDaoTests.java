@@ -14,6 +14,7 @@ import java.util.Map;
 
 public class JdbcCharacterDaoTests extends BaseDaoTests {
     JdbcCharacterDao sut;
+    JdbcClassDao classDao;
     List<ClassDTO> CHARACTER_ONE_CLASSES = new ArrayList<>();
     List<ClassDTO> CHARACTER_TWO_CLASSES = new ArrayList<>();
     List<ClassDTO> CHARACTER_THREE_CLASSES = new ArrayList<>();
@@ -24,7 +25,8 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
     @Before
     public void setUp() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        sut = new JdbcCharacterDao(jdbcTemplate);
+        classDao = new JdbcClassDao(jdbcTemplate);
+        sut = new JdbcCharacterDao(jdbcTemplate, classDao);
         CHARACTER_ONE_CLASSES.add(new ClassDTO("sorcerer", "Divine Soul", 5));
         CHARACTER_TWO_CLASSES.add(new ClassDTO("bard", "College of Swords", 3));
         CHARACTER_TWO_CLASSES.add(new ClassDTO("rogue", "Swashbuckler", 2));
@@ -54,21 +56,6 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
         for (int i = 0; i < expected.size(); i++) {
             assertCharactersMatch(expected.get(i), actual.get(i));
         }
-    }
-
-    @Test
-    public void get_classes_and_subclasses_returns_correct() {
-        List<ClassDTO> expected = new ArrayList<>();
-        expected.add(new ClassDTO("sorcerer", "Divine Soul", 5));
-        List<ClassDTO> actual = sut.getClassesAndSubclassesByCharacterId(1);
-        assertClassSubclassMatch(expected.get(0), actual.get(0));
-
-        expected.clear();
-        expected.add(new ClassDTO("bard", "College of Swords", 3));
-        expected.add(new ClassDTO("rogue", "Swashbuckler", 2));
-        Assert.assertTrue(expected.size() == 2);
-        actual = sut.getClassesAndSubclassesByCharacterId(2);
-        assertClassSubclassMatch(expected.get(0), actual.get(0));
     }
 
     @Test
