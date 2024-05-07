@@ -50,8 +50,8 @@ export default {
 
 @media screen and ( min-width: 750px) {
     #router-view {
-      margin-top: 4rem;
-      margin-bottom: 4rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
     }
 }
 </style>

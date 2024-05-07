@@ -1,8 +1,13 @@
 <template>
     <div class="container">
+        <div class="alert alert-success alert-dismissible fade show" v-if="$store.state.showSuccess" role="alert">
+            <strong>Yeehaw!</strong> character edit successful
+            <button @click="dismissAlert" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <ul class="nav nav-pills mb-3">
+            <li><router-link class="nav-link" v-bind:to="{ name: 'characters' }">back to your characters</router-link></li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">manage character</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">character options</a>
                 <ul class="dropdown-menu">
                     <li><router-link class="dropdown-item" v-bind:to="{ name: 'edit-character' }">edit profile</router-link></li>
                     <li><a class="dropdown-item" href="#">manage classes</a></li>
@@ -42,7 +47,6 @@ import CharacterService from '../services/CharacterService';
         data() {
             return {
                 character: {},
-                
             }
     },
     methods: {
@@ -56,7 +60,10 @@ import CharacterService from '../services/CharacterService';
                 this.$store.commit("SET_CHARACTERS", response.data);
                 this.character = this.$store.state.characters.find(c => c.name == this.$route.params.name);
             })
-        }, 
+    }, 
+    dismissAlert() {
+        this.$store.commit("DISMISS_ALERT");
+        }
     }
 </script>
 
@@ -68,6 +75,7 @@ img {
 
 h1 {
     margin-bottom: 0;
+    margin-top: 1rem;
 }
 
 .class {
@@ -88,6 +96,10 @@ button {
     margin-top: 1.2rem;
 }
 
+.btn-close {
+    margin-top: 0;
+}
+
 @media screen and ( min-width: 400px ) {
     .class {
         font-size: 1rem;
@@ -99,6 +111,13 @@ button {
 
     img {
         margin-bottom: 0;
+    }
+
+}
+
+@media screen and ( min-width: 750px ) {
+    h1 {
+        margin-top: 0;
     }
 
 }

@@ -6,7 +6,7 @@
     <div class="container w-50">
         
         <h1 class="mb-3">edit {{ character.name }}</h1>
-            <form @submit.prevent="saveChanges">
+            <form @submit.prevent="saveChanges" class="d-flex flex-column">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="nameInput" placeholder="neme" v-model="editedCharacter.name">
                         <label for="nameInput">name</label>
@@ -47,7 +47,7 @@
                         <PicUploaderButton id="picButton" class="mb-2" @imageUploaded="setImg"/>
                         <img :src="editedCharacter.profilePic" class="details-pic">
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">save changes</button>
+                    <button type="submit" class="btn btn-primary align-self-center">save changes</button>
             </form>
         </div>
         </div>
@@ -85,6 +85,7 @@ import CharacterService from '../services/CharacterService';
                     CharacterService.getAllCharacters().then(response => {
                         this.$store.commit("SET_CHARACTERS", response.data);
                     })
+                    this.$store.state.showSuccess = true;
                     this.$router.push({ name: 'character-details', params: {name: this.editedCharacter.name} })
                 }
             }).catch(error => {

@@ -6,7 +6,8 @@ export function createStore(currentToken, currentUser) {
     state: {
       token: currentToken || '',
       user: currentUser || {},
-      characters: []
+      characters: [],
+      showSuccess: false
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -27,6 +28,9 @@ export function createStore(currentToken, currentUser) {
       },
       SET_CHARACTERS(state, characterList) {
         state.characters = characterList;
+      },
+      DISMISS_ALERT(state) {
+        state.showSuccess = false;
       }
     },
   });
