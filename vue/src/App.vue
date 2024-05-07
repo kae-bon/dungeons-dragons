@@ -38,25 +38,20 @@ export default {
 #router-view {
   flex-grow: 1;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 @media screen and ( min-width: 400px ) {
-    .card {
-        width: 45%;
-    }
-
     #router-view {
       margin-top: 2rem;
+      margin-bottom: 2rem;
     }
 }
 
 @media screen and ( min-width: 750px) {
-    .card {
-        width: 25%;
-    }
-
     #router-view {
       margin-top: 4rem;
+      margin-bottom: 4rem;
     }
 }
 </style>

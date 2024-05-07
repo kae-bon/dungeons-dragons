@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.ClassDTO;
 import com.techelevator.model.CharacterDTO;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -9,7 +10,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,23 @@ public class JdbcCharacterDao implements CharacterDao {
 
     @Override
     public CharacterDTO getCharacterById(int id) {
-        return null;
+        CharacterDTO character = null;
+        String sql = "SELECT character_id, user_id, character_name, character_race, current_level, alignment, profile_pic\n" +
+                "FROM characters\n" +
+                "WHERE character_id = ?;";
+
+        try {
+            SqlRowSet results = jdbc.queryForRowSet(sql, id);
+            if (results.next()) {
+                character = mapRowToCharacter(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Cannot connect to server - please try again later.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Couldn't find any characters registered under that id.");
+        }
+
+        return character;
     }
 
     @Override
@@ -51,9 +67,11 @@ public class JdbcCharacterDao implements CharacterDao {
         return characters;
     }
 
-    public Map<String, String> getClassesAndSubclassesByCharacterId(int id) {
-        Map<String, String> classesSubclasses = new HashMap<>();
-        String sql = "SELECT class_name, subclass_name\n" +
+    public List<ClassDTO> getClassesAndSubclassesByCharacterId(int id) {
+//        Map<String, String> classesSubclasses = new HashMap<>();
+        List<ClassDTO> classesSubclasses = new ArrayList<>();
+        ClassDTO classDTO = null;
+        String sql = "SELECT class_name, subclass_name, class_level\n" +
                 "FROM classes\n" +
                 "JOIN character_classes AS cc ON cc.class_id = classes.class_id\n" +
                 "JOIN subclasses AS s ON s.subclass_id = cc.subclass_id\n" +
@@ -62,8 +80,10 @@ public class JdbcCharacterDao implements CharacterDao {
         try {
             SqlRowSet results = jdbc.queryForRowSet(sql, id);
             while (results.next()) {
-                classesSubclasses.put(results.getString("class_name"),
-                                    results.getString("subclass_name"));
+                classDTO = new ClassDTO(results.getString("class_name"),
+                                        results.getString("subclass_name"),
+                                        results.getInt("class_level"));
+                classesSubclasses.add(classDTO);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Cannot connect to server - please try again later.");
@@ -72,6 +92,30 @@ public class JdbcCharacterDao implements CharacterDao {
         }
         return classesSubclasses;
     }
+
+    @Override
+    public CharacterDTO editCharacter(CharacterDTO character) {
+        CharacterDTO updatedCharacter = null;
+        String sql = "UPDATE characters\n" +
+                "SET character_id=?, user_id=?, character_name=?, character_race=?, current_level=?, alignment=?, profile_pic=?\n" +
+                "WHERE character_id=?;";
+        try {
+            int numberOfRows = jdbc.update(sql, character.getId(), character.getUserId(),
+                                            character.getName(),character.getRace(), character.getCurrentLevel(),
+                                            character.getAlignment(), character.getProfilePic(), character.getId());
+            if (numberOfRows == 0) {
+                throw new DaoException("Zero rows affected, expected at least one.");
+            } else {
+                updatedCharacter = this.getCharacterById(character.getId());
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Cannot connect to server - please try again later.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Couldn't find any characters registered for that user id.");
+        }
+        return updatedCharacter;
+    }
+
 
     private CharacterDTO mapRowToCharacter(SqlRowSet results) {
         CharacterDTO character = new CharacterDTO(results.getInt("user_id"),
@@ -84,4 +128,6 @@ public class JdbcCharacterDao implements CharacterDao {
                                                 results.getInt("current_level"));
         return character;
     }
+
+
 }

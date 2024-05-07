@@ -1,6 +1,6 @@
 package com.techelevator.model;
 
-import java.util.Map;
+import java.util.List;
 
 public class CharacterDTO {
     private int userId;
@@ -10,10 +10,11 @@ public class CharacterDTO {
     private int currentLevel;
     private String alignment;
     private String profilePic;
-    private Map<String, String> classesSubclasses;
+//    private Map<String, String> classesSubclasses;
+    private List<ClassDTO> classesSubclasses;
 
     public CharacterDTO() {}
-    public CharacterDTO(int userId, int id, String name, String race, String alignment, String profilePic, Map<String, String> classesSubclasses, int currentLevel) {
+    public CharacterDTO(int userId, int id, String name, String race, String alignment, String profilePic, List<ClassDTO> classesSubclasses, int currentLevel) {
         this.userId = userId;
         this.id = id;
         this.name = name;
@@ -64,11 +65,11 @@ public class CharacterDTO {
         this.profilePic = profilePic;
     }
 
-    public Map<String, String> getClassesSubclasses() {
+    public List<ClassDTO> getClassesSubclasses() {
         return classesSubclasses;
     }
 
-    public void setClassesSubclasses(Map<String, String> classesSubclasses) {
+    public void setClassesSubclasses(List<ClassDTO> classesSubclasses) {
         this.classesSubclasses = classesSubclasses;
     }
 

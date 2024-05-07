@@ -7,10 +7,7 @@ import com.techelevator.model.CharacterDTO;
 import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -36,6 +33,27 @@ public class CharacterController {
             return characterDao.getCharactersByUserId(userId);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find characters registered for the currently logged in user.");
+        }
+    }
+
+    @GetMapping(path="/characters/{id}")
+    public CharacterDTO getCharacterById(@PathVariable int id) {
+        try {
+            return characterDao.getCharacterById(id);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
+        }
+    }
+
+    @PutMapping(path="/characters/{id}")
+    public CharacterDTO editCharacterInfo(@PathVariable int id, @RequestBody CharacterDTO character, Principal principal) {
+        try {
+            User user = userDao.getUserByUsername(principal.getName());
+            character.setUserId(user.getId());
+            character.setId(id);
+            return characterDao.editCharacter(character);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not edit this character - try again later.");
         }
     }
 }
