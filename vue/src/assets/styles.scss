@@ -10,6 +10,7 @@ $orange: #f4a261;
 $yellow: #e9c46a;
 $navbar-light-toggler-border-color: $light;
 $nav-link-hover-color: $dark;
+$nav-pills-link-active-bg: $yellow;
 
 
 // Required Stylesheets
@@ -32,6 +33,8 @@ $nav-link-hover-color: $dark;
 @import "../../node_modules/bootstrap/scss/forms";
 @import "../../node_modules/bootstrap/scss/card";
 @import "../../node_modules/bootstrap/scss/modal";
+@import "../../node_modules/bootstrap/scss/nav";
+@import "../../node_modules/bootstrap/scss/dropdown";
 
 // Utilities API
 @import "../../node_modules/bootstrap/scss/utilities/api";
@@ -67,6 +70,10 @@ footer {
 }
 
 img {
+    border-bottom: $card-border-width solid $card-border-color;
+}
+
+img.details-pic {
     border: $card-border-width solid $card-border-color;
     border-radius: $card-border-radius;
 }

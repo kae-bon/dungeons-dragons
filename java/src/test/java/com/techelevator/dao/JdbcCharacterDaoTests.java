@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.CharacterDTO;
+import com.techelevator.model.ClassDTO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +14,9 @@ import java.util.Map;
 
 public class JdbcCharacterDaoTests extends BaseDaoTests {
     JdbcCharacterDao sut;
-    Map<String, String> CHARACTER_ONE_CLASSES = new HashMap<>();
-    Map<String, String> CHARACTER_TWO_CLASSES = new HashMap<>();
-    Map<String, String> CHARACTER_THREE_CLASSES = new HashMap<>();
+    List<ClassDTO> CHARACTER_ONE_CLASSES = new ArrayList<>();
+    List<ClassDTO> CHARACTER_TWO_CLASSES = new ArrayList<>();
+    List<ClassDTO> CHARACTER_THREE_CLASSES = new ArrayList<>();
     CharacterDTO CHARACTER_ONE = new CharacterDTO(2, 1, "Neme", "Satyr", "Chaotic Neutral", "https://res.cloudinary.com/dccsx3iht/image/upload/v1714150573/x3hhbbomsbf1pa4ybw60.jpg", CHARACTER_ONE_CLASSES, 5);
     CharacterDTO CHARACTER_TWO = new CharacterDTO(2, 2, "Rhywyn", "Halfling", "None", "https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg", CHARACTER_TWO_CLASSES, 5);
     CharacterDTO CHARACTER_THREE = new CharacterDTO(2, 3, "Chicken", "Tiefling", "Chaotic Good", "https://res.cloudinary.com/dccsx3iht/image/upload/v1714153760/dswrsvil5g9i65xhakof.jpg", CHARACTER_THREE_CLASSES, 3);
@@ -24,10 +25,19 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
     public void setUp() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         sut = new JdbcCharacterDao(jdbcTemplate);
-        CHARACTER_ONE_CLASSES.put("sorcerer", "Divine Soul");
-        CHARACTER_TWO_CLASSES.put("bard", "College of Swords");
-        CHARACTER_TWO_CLASSES.put("rogue", "Swashbuckler");
-        CHARACTER_THREE_CLASSES.put("druid", "Circle of Spores");
+        CHARACTER_ONE_CLASSES.add(new ClassDTO("sorcerer", "Divine Soul", 5));
+        CHARACTER_TWO_CLASSES.add(new ClassDTO("bard", "College of Swords", 3));
+        CHARACTER_TWO_CLASSES.add(new ClassDTO("rogue", "Swashbuckler", 2));
+        CHARACTER_THREE_CLASSES.add(new ClassDTO("druid", "Circle of Spores", 3));
+    }
+
+    @Test
+    public void get_character_gets_character() {
+        CharacterDTO actual = sut.getCharacterById(1);
+        assertCharactersMatch(CHARACTER_ONE, actual);
+
+        actual = sut.getCharacterById(2);
+        assertCharactersMatch(CHARACTER_TWO, actual);
     }
 
     @Test
@@ -48,17 +58,31 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
 
     @Test
     public void get_classes_and_subclasses_returns_correct() {
-        Map<String, String> expected = new HashMap<>();
-        expected.put("sorcerer", "Divine Soul");
-        Map<String, String> actual = sut.getClassesAndSubclassesByCharacterId(1);
-        Assert.assertEquals(expected, actual);
+        List<ClassDTO> expected = new ArrayList<>();
+        expected.add(new ClassDTO("sorcerer", "Divine Soul", 5));
+        List<ClassDTO> actual = sut.getClassesAndSubclassesByCharacterId(1);
+        assertClassSubclassMatch(expected.get(0), actual.get(0));
 
         expected.clear();
-        expected.put("rogue", "Swashbuckler");
-        expected.put("bard", "College of Swords");
+        expected.add(new ClassDTO("bard", "College of Swords", 3));
+        expected.add(new ClassDTO("rogue", "Swashbuckler", 2));
         Assert.assertTrue(expected.size() == 2);
         actual = sut.getClassesAndSubclassesByCharacterId(2);
-        Assert.assertEquals(expected, actual);
+        assertClassSubclassMatch(expected.get(0), actual.get(0));
+    }
+
+    @Test
+    public void edit_character_edits_character() {
+        CharacterDTO characterToUpdate = sut.getCharacterById(1);
+
+        characterToUpdate.setAlignment("Chaotic Evil");
+        characterToUpdate.setCurrentLevel(6);
+
+        CharacterDTO updatedCharacter = sut.editCharacter(characterToUpdate);
+        CharacterDTO retrievedCharacter = sut.getCharacterById(updatedCharacter.getId());
+
+        assertCharactersMatch(characterToUpdate, retrievedCharacter);
+        assertCharactersMatch(updatedCharacter, retrievedCharacter);
     }
 
     private void assertCharactersMatch(CharacterDTO expected, CharacterDTO actual) {
@@ -69,7 +93,16 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
         Assert.assertEquals(expected.getAlignment(), actual.getAlignment());
         Assert.assertEquals(expected.getProfilePic(), actual.getProfilePic());
         Assert.assertEquals(expected.getCurrentLevel(), actual.getCurrentLevel());
-        Assert.assertEquals(expected.getClassesSubclasses(), actual.getClassesSubclasses());
+
+        for (int i = 0; i < expected.getClassesSubclasses().size(); i++) {
+            assertClassSubclassMatch(expected.getClassesSubclasses().get(i), actual.getClassesSubclasses().get(i));
+        }
+    }
+
+    private void assertClassSubclassMatch(ClassDTO expected, ClassDTO actual) {
+        Assert.assertEquals(expected.getCharacterClass(), actual.getCharacterClass());
+        Assert.assertEquals(expected.getSubclass(), actual.getSubclass());
+        Assert.assertEquals(expected.getClassLevel(), actual.getClassLevel());
     }
 
 }
