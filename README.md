@@ -6,4 +6,4 @@ profile pic!
 **A personal project built using Java, Spring Boot, PostgreSQL, Vue.js, and Bootstrap**
 
 
-WELCOME ADVENTURER'S !
+WELCOME ADVENTURERS!
