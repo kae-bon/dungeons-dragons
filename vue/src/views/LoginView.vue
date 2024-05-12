@@ -2,7 +2,7 @@
   <div class="container form form-floating">
     <div class="mb-5">
       <h1>Your Adventure Awaits!</h1>
-      <h2 class="fst-italic">please sign in</h2>
+      <h2 class="fst-italic">please log in</h2>
 
       <div role="alert" v-if="invalidCredentials">
           Invalid username and password!
@@ -22,7 +22,7 @@
         <label for="password" class="form-label">password</label>
         <input type="password" class="form-control" id="password" v-model="user.password" required>
       </div>
-      <button class="btn btn-primary mb-4" type="submit">Sign in</button>
+      <button class="btn btn-primary mb-4" type="submit">log in</button>
       <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
     
     </form>

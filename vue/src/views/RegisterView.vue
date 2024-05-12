@@ -1,24 +1,27 @@
 <template>
-  <div id="register" class="text-center container mt-3">
-    <form v-on:submit.prevent="register">
-      <h1>Create Account</h1>
+  <div id="register" class="container form form-floating">
+    <div class="mb-5">
+      <h1>Your Adventure Awaits!</h1>
+      <h2 class="fst-italic">create an account</h2>
+    </div>
+    <form v-on:submit.prevent="register" class="d-flex flex-column align-items-center">
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+      <div class="form-input-group mb-3 input">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" class="form-control" v-model="user.username" required autofocus />
       </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+      <div class="form-input-group mb-3 input">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" class="form-control" v-model="user.password" required />
       </div>
-      <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+      <div class="form-input-group mb-3 input">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="form-control" v-model="user.confirmPassword" required />
       </div>
-      <button type="submit">Create Account</button>
-      <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+      <button class="btn btn-primary mb-4" type="submit">Create Account</button>
+      <router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link>
     </form>
   </div>
 </template>
@@ -36,7 +39,7 @@ export default {
         role: 'user',
       },
       registrationErrors: false,
-      registrationErrorMsg: 'There were problems registering this user.',
+      registrationErrorMsg: 'This username is already taken!',
     };
   },
   methods: {
@@ -73,10 +76,35 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
+h2 {
+  font-size: 1.2rem;
 }
-label {
-  margin-right: 0.5rem;
+
+.input {
+  width: 100%;
+}
+
+a {
+  color: #219ebc;
+  text-decoration: none;
+  transition: .15s color;
+}
+
+a:hover {
+  color: #f4a261;
+  transition: .15s color;
+}
+
+@media screen and ( min-width: 400px ) {
+    .input {
+      width: 75%;
+    }
+
+}
+
+@media screen and ( min-width: 750px ) {
+    .input {
+      width: 50%;
+    }
 }
 </style>
