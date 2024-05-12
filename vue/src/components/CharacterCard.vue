@@ -38,6 +38,11 @@ a {
 
 span {
     font-size: .6rem;
+    width: 100%;
+}
+
+.badge {
+    white-space: normal;
 }
 
 p {
@@ -65,7 +70,7 @@ p {
     }
 
     span {
-    font-size: .7rem;
+    font-size: .65rem;
     }
 }
 
@@ -73,7 +78,20 @@ p {
     .card {
         width: 25%;
     }
+
+
 }
+
+@media screen and ( min-width: 800px) {
+    span {
+        font-size: .7rem;
+        display: inline-block;
+        width: 75%;
+    }
+
+
+}
+    
     
 
 </style>
