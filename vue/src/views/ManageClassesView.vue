@@ -2,17 +2,11 @@
     <div class="container">
         <ul class="nav nav-pills mb-3">
             <li><router-link class="nav-link" v-bind:to="{ name: 'character-details', params: {name: character.name} }">back to {{ character.name }}'s profile</router-link></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">character options</a>
-                <ul class="dropdown-menu">
-                    <li><router-link class="dropdown-item" v-bind:to="{ name: 'edit-character' }">edit profile</router-link></li>
-                    <li><router-link class="dropdown-item" :character="character" v-bind:to="{ name: 'manage-classes' }">manage classes</router-link></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="#">delete character</a></li>
-                </ul>
-            </li>
         </ul>
-        <h1>{{ character.name }}</h1>
+        <h1>{{ character.name }}'s Classes</h1>
+        <div class="container">
+            <span v-for="charClass in character.classesSubclasses" :key="charClass.characterClass" class="badge text-bg-primary mb-0">{{ charClass.subclass }} {{ charClass.characterClass }}</span>
+        </div>
     </div>
 </template>
 
@@ -38,5 +32,13 @@ export default {
 </script>
 
 <style scoped>
+span {
+    font-size: 1rem;
+}
 
+@media screen and ( min-width: 650px ) {
+    span {
+    font-size: 1.2rem;
+    }
+}
 </style>

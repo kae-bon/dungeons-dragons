@@ -82,7 +82,7 @@ import CharacterService from '../services/CharacterService';
                     CharacterService.getAllCharacters().then(response => {
                         this.$store.commit("SET_CHARACTERS", response.data);
                     })
-                    this.$store.state.showSuccess = true;
+                    this.$store.commit("SHOW_ALERT");
                     this.$router.push({ name: 'character-details', params: {name: this.editedCharacter.name} })
                 }
             }).catch(error => {

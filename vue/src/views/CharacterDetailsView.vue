@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="alert alert-success alert-dismissible fade show" v-if="$store.state.showSuccess" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" v-if="showSuccess" role="alert">
             <strong>Yeehaw!</strong> character edit successful
             <button @click="dismissAlert" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -47,12 +47,16 @@ import CharacterService from '../services/CharacterService';
         data() {
             return {
                 character: {},
+                showSuccess: this.$store.state.showSuccess
             }
-    },
-    methods: {
-        closeModal() {
-            let modal = document.getElementById('optionsModal');
-            modal.click();
+        },
+        methods: {
+            closeModal() {
+                let modal = document.getElementById('optionsModal');
+                modal.click();
+            },
+            dismissAlert() {
+            this.$store.commit("DISMISS_ALERT");
             }
         },
         created() {
@@ -60,10 +64,7 @@ import CharacterService from '../services/CharacterService';
                 this.$store.commit("SET_CHARACTERS", response.data);
                 this.character = this.$store.state.characters.find(c => c.name == this.$route.params.name);
             })
-    }, 
-    dismissAlert() {
-        this.$store.commit("DISMISS_ALERT");
-        }
+        }, 
     }
 </script>
 

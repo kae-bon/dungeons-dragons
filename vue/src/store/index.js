@@ -31,6 +31,9 @@ export function createStore(currentToken, currentUser) {
       },
       DISMISS_ALERT(state) {
         state.showSuccess = false;
+      },
+      SHOW_ALERT(state) {
+        state.showSuccess = true;
       }
     },
   });
