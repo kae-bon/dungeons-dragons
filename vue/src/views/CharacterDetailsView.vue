@@ -10,7 +10,7 @@
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">character options</a>
                 <ul class="dropdown-menu">
                     <li><router-link class="dropdown-item" v-bind:to="{ name: 'edit-character' }">edit profile</router-link></li>
-                    <li><router-link class="dropdown-item" v-bind:to="{ name: 'manage-classes' }">manage classes</router-link></li>
+                    <li><router-link class="dropdown-item" :character="character" v-bind:to="{ name: 'manage-classes' }">manage classes</router-link></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item text-danger" href="#">delete character</a></li>
                 </ul>

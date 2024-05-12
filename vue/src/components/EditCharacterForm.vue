@@ -1,8 +1,5 @@
 <template>
-    <div class="container">
-        <ul class="nav nav-pills mb-3">
-            <li><router-link class="nav-link" v-bind:to="{ name: 'character-details', params: {name: character.name} }">back to {{ character.name }}'s profile</router-link></li>   
-        </ul>
+        
     <div class="container w-50">
         
         <h1 class="mb-3">edit {{ character.name }}</h1>
@@ -50,7 +47,7 @@
                     <button type="submit" class="btn btn-primary align-self-center">save changes</button>
             </form>
         </div>
-        </div>
+       
 </template>
 
 <script>

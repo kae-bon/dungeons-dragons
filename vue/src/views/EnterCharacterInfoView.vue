@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div class="container">
+        <ul class="nav nav-pills mb-3">
+            <li><router-link class="nav-link" v-bind:to="{ name: 'character-details', params: {name: character.name} }">back to {{ character.name }}'s profile</router-link></li>   
+        </ul>
         <EditCharacterForm :character="character"/>
     </div>
 </template>
