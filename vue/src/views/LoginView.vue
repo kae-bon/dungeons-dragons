@@ -1,26 +1,33 @@
 <template>
-  <div id="login" class="container mt-3">
-    <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
+  <div class="container form form-floating">
+    <div class="mb-5">
+      <h1>Your Adventure Awaits!</h1>
+      <h2 class="fst-italic">please sign in</h2>
+
       <div role="alert" v-if="invalidCredentials">
-        Invalid username and password!
+          Invalid username and password!
       </div>
       <div role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
+          Thank you for registering, please sign in.
       </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+    </div>
+   
+    <form class="d-flex flex-column align-items-center" v-on:submit.prevent="login">
+      
+      <div class="mb-3 input">
+        <label for="username" class="form-label">username</label>
+        <input type="text" class="form-control" id="username" placeholder="adventurous-aardvark" v-model="user.username" required autofocus>
       </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+      <div class="mb-3 input">
+        <label for="password" class="form-label">password</label>
+        <input type="password" class="form-control" id="password" v-model="user.password" required>
       </div>
-      <button type="submit">Sign in</button>
-      <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      <button class="btn btn-primary mb-4" type="submit">Sign in</button>
+      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
+    
     </form>
   </div>
+  
 </template>
 
 <script>
@@ -61,10 +68,35 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
+h2 {
+  font-size: 1.2rem;
 }
-label {
-  margin-right: 0.5rem;
+
+.input {
+  width: 100%;
+}
+
+a {
+  color: #219ebc;
+  text-decoration: none;
+  transition: .15s color;
+}
+
+a:hover {
+  color: #f4a261;
+  transition: .15s color;
+}
+
+@media screen and ( min-width: 400px ) {
+    .input {
+      width: 75%;
+    }
+
+}
+
+@media screen and ( min-width: 750px ) {
+    .input {
+      width: 50%;
+    }
 }
 </style>

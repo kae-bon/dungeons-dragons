@@ -7,7 +7,7 @@
             <p class="card-text mt-3">{{character.race}}</p>       
         </div>
         <div class="text-center mt-2 mb-3">
-            <router-link :character='character' class="btn btn-secondary" v-bind:to="{ name: 'character-details', params: {name: character.name} }">character details</router-link>
+            <router-link :character='character' class="btn btn-success" v-bind:to="{ name: 'character-details', params: {name: character.name} }">character details</router-link>
         </div>
     </div>
 </template>
@@ -78,8 +78,6 @@ p {
     .card {
         width: 25%;
     }
-
-
 }
 
 @media screen and ( min-width: 800px) {
@@ -89,7 +87,9 @@ p {
         width: 75%;
     }
 
-
+    .btn {
+        font-size: .9rem;
+    }
 }
     
     

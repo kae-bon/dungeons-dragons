@@ -22,7 +22,7 @@ export default {
                 if (error.response.status == 404) {
                     this.$store.commit("SET_CHARACTERS", {})
                 } else {
-                    alert("no")
+                  this.$store.commit("SET_CHARACTERS", {})
                 }
             })
         }
