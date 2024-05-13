@@ -61,7 +61,7 @@ public class JdbcClassDaoTests extends BaseDaoTests {
         List<ClassSubclassesDTO> classSubclassesDTOS = sut.getAllClassesAndSubclasses();
         Assert.assertTrue(classSubclassesDTOS.size() == 13);
 
-        Assert.assertEquals(classSubclassesDTOS.get(0).getClassName(), "wizard");
+        Assert.assertEquals(classSubclassesDTOS.get(0).getClassName(), "artificer");
     }
 
     @Test

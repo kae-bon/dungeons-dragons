@@ -1,26 +1,26 @@
 <template>
         
-    <div class="container w-50">
+    <div class="container">
         
         <h1 class="mb-3">edit {{ character.name }}</h1>
-            <form @submit.prevent="saveChanges" class="d-flex flex-column">
-                    <div class="form-floating mb-3">
+            <form @submit.prevent="saveChanges" class="d-flex flex-column align-items-center">
+                    <div class="form-floating mb-3 input">
                         <input type="text" class="form-control" id="nameInput" placeholder="neme" v-model="editedCharacter.name">
                         <label for="nameInput">name</label>
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-3 input">
                         <input type="text" class="form-control" id="raceInput" placeholder="satyr" v-model="editedCharacter.race">
                         <label for="raceInput">race</label>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-lg">
+                    <div class="row mb-3 input">
+                        <div class="col-lg p-0">
                             <div class="form-floating mb-3">
                                 <input type="number" min="1" max="20" class="form-control" id="currentLevelInput" placeholder="5" v-model.number="editedCharacter.currentLevel">
                                 <label for="currentLevelInput">level</label>
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-7 p-0 ms-lg-2">
                             <div class="form-floating mb-3"> 
                                 <select class="form-select" id="selectAlignment" aria-label="alignment" v-model="editedCharacter.alignment">
                                     <option disabled>---</option>
@@ -118,6 +118,10 @@ img {
 
     .img-select {
         margin-bottom: 3rem;
+    }
+
+    .input {
+        width: 50%;
     }
     
 }

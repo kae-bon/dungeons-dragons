@@ -69,11 +69,11 @@ public class JdbcClassDao implements ClassDao {
         List<ClassSubclassesDTO> classesAndSubclasses = new ArrayList<>();
         String sql = "SELECT class_name\n" +
                 "FROM classes;";
-        ClassSubclassesDTO classSubclassesDTO = new ClassSubclassesDTO();
 
         try {
             SqlRowSet results = jdbc.queryForRowSet(sql);
             while (results.next()) {
+                ClassSubclassesDTO classSubclassesDTO = new ClassSubclassesDTO();
                 classSubclassesDTO.setClassName(results.getString("class_name"));
                 classSubclassesDTO.setSubclasses(getSubclassesForClass(classSubclassesDTO.getClassName()));
                 classesAndSubclasses.add(classSubclassesDTO);
