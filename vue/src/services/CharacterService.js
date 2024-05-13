@@ -12,6 +12,10 @@ export default {
 
   getCharacterById(id) {
     return axios.get(`/characters/${id}`);
+  },
+
+  addClassSubclassToCharacter(id, classSubclass) {
+    return axios.post(`/characters/${id}/classes`, classSubclass);
   }
 
 }
