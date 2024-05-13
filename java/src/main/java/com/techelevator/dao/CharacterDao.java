@@ -1,10 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.CharacterDTO;
-import com.techelevator.model.ClassDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CharacterDao {
     /**

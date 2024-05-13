@@ -1,23 +1,21 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.CharacterDTO;
-import com.techelevator.model.ClassDTO;
+import com.techelevator.model.CharacterClassDTO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class JdbcCharacterDaoTests extends BaseDaoTests {
     JdbcCharacterDao sut;
     JdbcClassDao classDao;
-    List<ClassDTO> CHARACTER_ONE_CLASSES = new ArrayList<>();
-    List<ClassDTO> CHARACTER_TWO_CLASSES = new ArrayList<>();
-    List<ClassDTO> CHARACTER_THREE_CLASSES = new ArrayList<>();
+    List<CharacterClassDTO> CHARACTER_ONE_CLASSES = new ArrayList<>();
+    List<CharacterClassDTO> CHARACTER_TWO_CLASSES = new ArrayList<>();
+    List<CharacterClassDTO> CHARACTER_THREE_CLASSES = new ArrayList<>();
     CharacterDTO CHARACTER_ONE = new CharacterDTO(2, 1, "Neme", "Satyr", "Chaotic Neutral", "https://res.cloudinary.com/dccsx3iht/image/upload/v1714150573/x3hhbbomsbf1pa4ybw60.jpg", CHARACTER_ONE_CLASSES, 5);
     CharacterDTO CHARACTER_TWO = new CharacterDTO(2, 2, "Rhywyn", "Halfling", "None", "https://res.cloudinary.com/dccsx3iht/image/upload/v1714150698/qmzaf08mchmqsoeajnif.jpg", CHARACTER_TWO_CLASSES, 5);
     CharacterDTO CHARACTER_THREE = new CharacterDTO(2, 3, "Chicken", "Tiefling", "Chaotic Good", "https://res.cloudinary.com/dccsx3iht/image/upload/v1714153760/dswrsvil5g9i65xhakof.jpg", CHARACTER_THREE_CLASSES, 3);
@@ -27,10 +25,10 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         classDao = new JdbcClassDao(jdbcTemplate);
         sut = new JdbcCharacterDao(jdbcTemplate, classDao);
-        CHARACTER_ONE_CLASSES.add(new ClassDTO("sorcerer", "Divine Soul", 5));
-        CHARACTER_TWO_CLASSES.add(new ClassDTO("bard", "College of Swords", 3));
-        CHARACTER_TWO_CLASSES.add(new ClassDTO("rogue", "Swashbuckler", 2));
-        CHARACTER_THREE_CLASSES.add(new ClassDTO("druid", "Circle of Spores", 3));
+        CHARACTER_ONE_CLASSES.add(new CharacterClassDTO("sorcerer", "Divine Soul", 5));
+        CHARACTER_TWO_CLASSES.add(new CharacterClassDTO("bard", "College of Swords", 3));
+        CHARACTER_TWO_CLASSES.add(new CharacterClassDTO("rogue", "Swashbuckler", 2));
+        CHARACTER_THREE_CLASSES.add(new CharacterClassDTO("druid", "Circle of Spores", 3));
     }
 
     @Test
@@ -86,7 +84,7 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
         }
     }
 
-    private void assertClassSubclassMatch(ClassDTO expected, ClassDTO actual) {
+    private void assertClassSubclassMatch(CharacterClassDTO expected, CharacterClassDTO actual) {
         Assert.assertEquals(expected.getCharacterClass(), actual.getCharacterClass());
         Assert.assertEquals(expected.getSubclass(), actual.getSubclass());
         Assert.assertEquals(expected.getClassLevel(), actual.getClassLevel());

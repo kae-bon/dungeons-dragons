@@ -11,6 +11,7 @@ import NotFoundView from '../views/NotFoundView.vue';
 import CharacterDetailsView from '../views/CharacterDetailsView.vue';
 import EnterCharacterInfoView from '../views/EnterCharacterInfoView.vue';
 import ManageClassesView from '../views/ManageClassesView.vue';
+import AddClassView from '../views/AddClassView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -81,6 +82,14 @@ const routes = [
     path: "/characters/:name/classes",
     name: "manage-classes",
     component: ManageClassesView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/characters/:name/classes/add-class",
+    name: "add-class",
+    component: AddClassView,
     meta: {
       requiresAuth: true
     }

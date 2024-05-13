@@ -5,7 +5,7 @@ import com.techelevator.dao.ClassDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.CharacterDTO;
-import com.techelevator.model.ClassDTO;
+import com.techelevator.model.CharacterClassDTO;
 import com.techelevator.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -62,9 +62,9 @@ public class CharacterController {
     }
 
     @PostMapping(path="/characters/{id}/classes")
-    public CharacterDTO addClassSubclassToCharacter(@PathVariable int id, @RequestBody ClassDTO classDTO) {
+    public CharacterDTO addClassSubclassToCharacter(@PathVariable int id, @RequestBody CharacterClassDTO characterClassDTO) {
         try {
-            classDao.addNewClassAndSubclassByCharacterId(id, classDTO);
+            classDao.addNewClassAndSubclassByCharacterId(id, characterClassDTO);
             return characterDao.getCharacterById(id);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find this character.");

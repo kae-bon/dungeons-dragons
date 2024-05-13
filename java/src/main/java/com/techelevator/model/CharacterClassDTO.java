@@ -1,12 +1,12 @@
 package com.techelevator.model;
 
-public class ClassDTO {
+public class CharacterClassDTO {
     private String characterClass;
     private String subclass;
     private int classLevel;
 
-    public ClassDTO(){}
-    public ClassDTO(String characterClass, String subclass, int classLevel) {
+    public CharacterClassDTO(){}
+    public CharacterClassDTO(String characterClass, String subclass, int classLevel) {
         this.characterClass = characterClass;
         this.subclass = subclass;
         this.classLevel = classLevel;

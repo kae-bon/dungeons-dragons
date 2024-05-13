@@ -11,10 +11,10 @@ public class CharacterDTO {
     private String alignment;
     private String profilePic;
 //    private Map<String, String> classesSubclasses;
-    private List<ClassDTO> classesSubclasses;
+    private List<CharacterClassDTO> classesSubclasses;
 
     public CharacterDTO() {}
-    public CharacterDTO(int userId, int id, String name, String race, String alignment, String profilePic, List<ClassDTO> classesSubclasses, int currentLevel) {
+    public CharacterDTO(int userId, int id, String name, String race, String alignment, String profilePic, List<CharacterClassDTO> classesSubclasses, int currentLevel) {
         this.userId = userId;
         this.id = id;
         this.name = name;
@@ -65,11 +65,11 @@ public class CharacterDTO {
         this.profilePic = profilePic;
     }
 
-    public List<ClassDTO> getClassesSubclasses() {
+    public List<CharacterClassDTO> getClassesSubclasses() {
         return classesSubclasses;
     }
 
-    public void setClassesSubclasses(List<ClassDTO> classesSubclasses) {
+    public void setClassesSubclasses(List<CharacterClassDTO> classesSubclasses) {
         this.classesSubclasses = classesSubclasses;
     }
 
