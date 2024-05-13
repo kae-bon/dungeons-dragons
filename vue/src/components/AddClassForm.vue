@@ -63,7 +63,7 @@ import CharacterService from '../services/CharacterService';
                 .then(() => {
                     CharacterService.getAllCharacters().then(response => {
                         this.$store.commit("SET_CHARACTERS", response.data);
-                        this.$router.push({ name: 'character-details', params: {name: this.character.name} });
+                        this.$router.push({ name: 'manage-classes', params: {name: this.character.name} });
                     }).catch(error => {
                         alert("Could not connect to database. Please try again later.")
                     })

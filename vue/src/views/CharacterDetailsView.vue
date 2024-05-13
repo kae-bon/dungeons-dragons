@@ -88,7 +88,7 @@ h1 {
     font-size: .9rem;
 }
 
-.class:first-of-type {
+.class:not(:last-child) {
     margin-bottom: 0;
 }
 
