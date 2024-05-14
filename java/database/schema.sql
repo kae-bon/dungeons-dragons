@@ -15,13 +15,11 @@ CREATE TABLE characters (
 	user_id INTEGER NOT NULL,
 	character_name VARCHAR(100) NOT NULL,
 	character_race VARCHAR(50) NOT NULL,
-	current_level INTEGER NOT NULL,
 	alignment VARCHAR(50) NOT NULL,
 	profile_pic VARCHAR(200) NOT NULL,
 
 	CONSTRAINT PK_character PRIMARY KEY (character_id),
-	CONSTRAINT FK_userid FOREIGN KEY (user_id) REFERENCES users (user_id),
-	CONSTRAINT CK_level CHECK (current_level <= 20 AND current_level > 0)
+	CONSTRAINT FK_userid FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE classes (
