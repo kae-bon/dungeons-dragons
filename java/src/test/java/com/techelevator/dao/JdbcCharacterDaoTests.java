@@ -61,7 +61,6 @@ public class JdbcCharacterDaoTests extends BaseDaoTests {
         CharacterDTO characterToUpdate = sut.getCharacterById(1);
 
         characterToUpdate.setAlignment("Chaotic Evil");
-        characterToUpdate.setCurrentLevel(6);
 
         CharacterDTO updatedCharacter = sut.editCharacter(characterToUpdate);
         CharacterDTO retrievedCharacter = sut.getCharacterById(updatedCharacter.getId());

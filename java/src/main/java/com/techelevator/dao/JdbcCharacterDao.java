@@ -81,11 +81,11 @@ public class JdbcCharacterDao implements CharacterDao {
     public CharacterDTO editCharacter(CharacterDTO character) {
         CharacterDTO updatedCharacter = null;
         String sql = "UPDATE characters\n" +
-                "SET character_id=?, user_id=?, character_name=?, character_race=?, current_level=?, alignment=?, profile_pic=?\n" +
+                "SET character_id=?, user_id=?, character_name=?, character_race=?, alignment=?, profile_pic=?\n" +
                 "WHERE character_id=?;";
         try {
             int numberOfRows = jdbc.update(sql, character.getId(), character.getUserId(),
-                                            character.getName(),character.getRace(), character.getCurrentLevel(),
+                                            character.getName(),character.getRace(),
                                             character.getAlignment(), character.getProfilePic(), character.getId());
             if (numberOfRows == 0) {
                 throw new DaoException("Zero rows affected, expected at least one.");
