@@ -15,6 +15,9 @@ import java.util.List;
 public class JdbcCharacterDao implements CharacterDao {
     JdbcTemplate jdbc;
     JdbcClassDao classDao;
+    private final String sqlLevel = "(SELECT SUM(class_level) AS total_level\n" +
+            "  FROM character_classes\n" +
+            "  WHERE character_id = characters.character_id)\n";
 
     public JdbcCharacterDao(JdbcTemplate jdbc, JdbcClassDao classDao) {
         this.jdbc = jdbc;
@@ -24,7 +27,9 @@ public class JdbcCharacterDao implements CharacterDao {
     @Override
     public CharacterDTO getCharacterById(int id) {
         CharacterDTO character = null;
-        String sql = "SELECT character_id, user_id, character_name, character_race, current_level, alignment, profile_pic\n" +
+        String sql = "SELECT character_id, user_id, character_name, character_race, (SELECT SUM(class_level) AS total_level\n" +
+                "FROM character_classes\n" +
+                "WHERE character_id = characters.character_id) AS char_level, alignment, profile_pic\n" +
                 "FROM characters\n" +
                 "WHERE character_id = ?;";
 
@@ -45,7 +50,11 @@ public class JdbcCharacterDao implements CharacterDao {
     @Override
     public List<CharacterDTO> getCharactersByUserId(int id) {
         List<CharacterDTO> characters = new ArrayList<>();
-        String sql = "SELECT characters.character_id, user_id, character_name, character_race, current_level, alignment, profile_pic\n" +
+        String sql = "SELECT characters.character_id, user_id, character_name, character_race, \n" +
+                "(SELECT SUM(class_level) AS total_level\n" +
+                "FROM character_classes\n" +
+                "WHERE character_id = characters.character_id) AS char_level\n" +
+                ", alignment, profile_pic\n" +
                 "FROM characters\n" +
                 "JOIN character_classes AS cc ON cc.character_id = characters.character_id\n" +
                 "JOIN classes AS c ON c.class_id = cc.class_id\n" +
@@ -54,6 +63,7 @@ public class JdbcCharacterDao implements CharacterDao {
                 "GROUP BY characters.character_id;";
         try {
             SqlRowSet results = jdbc.queryForRowSet(sql, id);
+
             while (results.next()) {
                 CharacterDTO character = mapRowToCharacter(results);
                 characters.add(character);
@@ -99,7 +109,7 @@ public class JdbcCharacterDao implements CharacterDao {
                                                 results.getString("alignment"),
                                                 results.getString("profile_pic"),
                                                 classDao.getClassesAndSubclassesByCharacterId(results.getInt("character_id")),
-                                                results.getInt("current_level"));
+                                                results.getInt("char_level"));
         return character;
     }
 
