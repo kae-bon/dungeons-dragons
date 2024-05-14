@@ -3,15 +3,18 @@
         <form @submit.prevent="addClass()" class="d-flex flex-column align-items-center">
             <div class="mb-3 input">
                 <label for="classSelect" class="form-label">choose class</label>
-                <select required id="classSelect" class="form-select" aria-label="select class" v-model="classInfo.characterClass">
+                <select required id="classSelect" class="form-select" aria-label="select class" 
+                v-model="classInfo.characterClass" >
                     <option selected disabled>---</option>
-                    <option v-for="cl in classes" :key="cl.className">{{ cl.className }}</option>
+                    <option v-for="cl in classes" :key="cl.className" :disabled="doesCharacterHaveClass(cl.className)">{{ cl.className }}</option>
                 </select>
+                <p class="form-text">already registered classes are disabled</p>
             </div>
             <div v-if="classInfo.characterClass != ''" class="input">
                 <div class="mb-3">
                     <label for="subclassSelect" class="form-label">choose subclass</label>
-                    <select required id="subclassSelect" class="form-select" aria-label="select class" v-model="classInfo.subclass">
+                    <select required id="subclassSelect" class="form-select" aria-label="select class" 
+                    v-model="classInfo.subclass">
                         <option selected disabled>---</option>
                         <option v-for="subclass in subclasses" :key="subclass">{{ subclass }}</option>
                     </select>
@@ -42,21 +45,31 @@ import CharacterService from '../services/CharacterService';
                 subclass: "",
                 classLevel: 0
             },
+            characterClasses: []
         }
     },
     computed: {
         subclasses() {
             return this.classes.find(c => c.className == this.classInfo.characterClass).subclasses;
-        }
+        },
+        
     },
     created() {
             ClassService.getAllClassesAndSubclasses().then(response => {
                 this.classes = response.data;
+
+                for (let i = 0; i < this.character.classesSubclasses.length; i++) {
+                    this.characterClasses.push(this.character.classesSubclasses[i].characterClass);
+                }
+                
             }).catch(error => {
                 alert("Could not connect to the database, please try again later.")
             })
     },
     methods: {
+        doesCharacterHaveClass(cl) {
+            return this.characterClasses.includes(cl);
+        },
         addClass() {
             console.log("hello")
             CharacterService.addClassSubclassToCharacter(this.character.id, this.classInfo)

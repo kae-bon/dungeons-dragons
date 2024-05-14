@@ -1,5 +1,9 @@
 <template>
     <div class="container">
+        <div class="alert alert-success alert-dismissible fade show" v-if="$store.state.showSuccess" role="alert">
+            <strong>Yeehaw!</strong> character edit successful
+            <button @click="dismissAlert" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <ul class="nav nav-pills mb-3">
             <li><router-link class="nav-link" v-bind:to="{ name: 'character-details', params: {name: character.name} }">back to {{ character.name }}'s profile</router-link></li>
         </ul>
