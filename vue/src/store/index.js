@@ -1,28 +1,29 @@
-import { createStore as _createStore } from 'vuex';
-import axios from 'axios';
+import { createStore as _createStore } from "vuex";
+import axios from "axios";
 
 export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
-      token: currentToken || '',
+      token: currentToken || "",
       user: currentUser || {},
       characters: [],
-      showSuccess: false
+      showSuccess: false,
+      classes: [],
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
-        localStorage.setItem('token', token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        localStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       },
       SET_USER(state, user) {
         state.user = user;
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
       },
       LOGOUT(state) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        state.token = '';
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        state.token = "";
         state.user = {};
         axios.defaults.headers.common = {};
       },
@@ -34,7 +35,10 @@ export function createStore(currentToken, currentUser) {
       },
       SHOW_ALERT(state) {
         state.showSuccess = true;
-      }
+      },
+      SET_CLASSES(state, classes) {
+        state.classes = classes;
+      },
     },
   });
   return store;

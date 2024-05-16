@@ -1,33 +1,52 @@
 <template>
-    <div class="container">
-        <ul class="nav nav-pills mb-3">
-            <li><router-link class="nav-link" v-bind:to="{ name: 'manage-classes', params: {name: character.name} }">back to {{ character.name }}'s classes</router-link></li>   
-        </ul>
-        <h1 class="mb-3">Add New Class</h1>
-        <AddClassForm :character="character"/>
-    </div>
+  <div class="container">
+    <ul class="nav nav-pills mb-3">
+      <li>
+        <router-link
+          class="nav-link"
+          v-bind:to="{
+            name: 'manage-classes',
+            params: { name: character.name },
+          }"
+          >back to {{ character.name }}'s classes</router-link
+        >
+      </li>
+    </ul>
+    <h1 class="mb-3">Add New Class</h1>
+    <AddClassForm :character="character" :characterClasses="characterClasses" />
+  </div>
 </template>
 
 <script>
-import AddClassForm from '../components/AddClassForm.vue';
-import CharacterService from '../services/CharacterService';
+import AddClassForm from "../components/AddClassForm.vue";
+import CharacterService from "../services/CharacterService";
+import ClassService from "../services/ClassService";
 
-    export default {
-    components: { AddClassForm },
-    data() {
-        return {
-            character: {}
+export default {
+  components: { AddClassForm },
+  data() {
+    return {
+      character: {},
+      characterClasses: [],
+    };
+  },
+  created() {
+    CharacterService.getAllCharacters().then((response) => {
+      this.$store.commit("SET_CHARACTERS", response.data);
+      this.character = this.character = this.$store.state.characters.find(
+        (c) => c.name == this.$route.params.name
+      );
+      ClassService.getAllClassesAndSubclasses().then((response) => {
+        this.$store.commit("SET_CLASSES", response.data);
+        for (let i = 0; i < this.character.classesSubclasses.length; i++) {
+          this.characterClasses.push(
+            this.character.classesSubclasses[i].characterClass
+          );
         }
-    },
-    created() {
-            CharacterService.getAllCharacters().then(response => {
-                this.$store.commit("SET_CHARACTERS", response.data);
-                this.character = this.character = this.$store.state.characters.find(c => c.name == this.$route.params.name)
-            });
-        }
-    }
+      });
+    });
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

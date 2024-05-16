@@ -64,7 +64,7 @@ import ClassService from "../services/ClassService";
 import CharacterService from "../services/CharacterService";
 
 export default {
-  props: ["character"],
+  props: ["character", "characterClasses"],
   data() {
     return {
       classes: [],
@@ -73,7 +73,6 @@ export default {
         subclass: "",
         classLevel: 1,
       },
-      characterClasses: [],
     };
   },
   computed: {
@@ -87,15 +86,9 @@ export default {
     ClassService.getAllClassesAndSubclasses()
       .then((response) => {
         this.classes = response.data;
-
-        for (let i = 0; i < this.character.classesSubclasses.length; i++) {
-          this.characterClasses.push(
-            this.character.classesSubclasses[i].characterClass
-          );
-        }
       })
       .catch((error) => {
-        alert("Could not connect to the database, please try again later.");
+        alert("Could not connect to database. Please try again later.");
       });
   },
   methods: {
