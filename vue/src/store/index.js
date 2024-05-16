@@ -7,7 +7,7 @@ export function createStore(currentToken, currentUser) {
       token: currentToken || "",
       user: currentUser || {},
       characters: [],
-      showSuccess: false,
+      showAlert: false,
       classes: [],
     },
     mutations: {
@@ -31,10 +31,10 @@ export function createStore(currentToken, currentUser) {
         state.characters = characterList;
       },
       DISMISS_ALERT(state) {
-        state.showSuccess = false;
+        state.showAlert = false;
       },
       SHOW_ALERT(state) {
-        state.showSuccess = true;
+        state.showAlert = true;
       },
       SET_CLASSES(state, classes) {
         state.classes = classes;

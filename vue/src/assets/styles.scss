@@ -8,11 +8,10 @@ $primary: #e76f51;
 $secondary: #219ebc;
 $orange: #f4a261;
 $yellow: #e9c46a;
-$success: $yellow;
+$info: $yellow;
 $navbar-light-toggler-border-color: $light;
 $nav-link-hover-color: $dark;
 $nav-pills-link-active-bg: $yellow;
-
 
 // Required Stylesheets
 @import "../../node_modules/bootstrap/scss/variables";
@@ -41,41 +40,41 @@ $nav-pills-link-active-bg: $yellow;
 @import "../../node_modules/bootstrap/scss/utilities/api";
 
 //Fonts
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Staatliches&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Staatliches&display=swap");
 
 // Additional Style Declarations
 
 .navbar-brand {
-    color: $dark;
+  color: $dark;
 }
 
 body {
-    background-color: $light;
-    font-family: "Poppins", sans-serif;
+  background-color: $light;
+  font-family: "Poppins", sans-serif;
 }
 
 i {
-    color: $light;
+  color: $light;
 }
 
 .navbar {
-    background-color: $orange;
+  background-color: $orange;
 }
 
-a, h1 {
-    font-family: 'Staatliches', sans-serif;
+a,
+h1 {
+  font-family: "Staatliches", sans-serif;
 }
 
 footer {
-    background-color: $orange;
+  background-color: $orange;
 }
 
 img {
-    border-bottom: $card-border-width solid $card-border-color;
+  border-bottom: $card-border-width solid $card-border-color;
 }
 
 img.details-pic {
-    border: $card-border-width solid $card-border-color;
-    border-radius: $card-border-radius;
+  border: $card-border-width solid $card-border-color;
+  border-radius: $card-border-radius;
 }
-

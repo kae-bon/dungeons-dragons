@@ -96,7 +96,11 @@ export default {
       return this.characterClasses.includes(cl);
     },
     addClass() {
-      console.log("hello");
+      if (this.classInfo.classLevel + this.character.currentLevel > 20) {
+        this.$emit("warning");
+        return;
+      }
+
       CharacterService.addClassSubclassToCharacter(
         this.character.id,
         this.classInfo

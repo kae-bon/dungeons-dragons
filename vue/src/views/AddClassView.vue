@@ -1,5 +1,19 @@
 <template>
   <div class="container">
+    <div
+      class="alert alert-warning alert-dismissible fade show"
+      v-if="showAlert"
+      role="alert"
+    >
+      <strong>Uh Oh!</strong> character level cannot exceed 20!
+      <button
+        @click="dismissAlert"
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
     <ul class="nav nav-pills mb-3">
       <li>
         <router-link
@@ -13,7 +27,11 @@
       </li>
     </ul>
     <h1 class="mb-3">Add New Class</h1>
-    <AddClassForm :character="character" :characterClasses="characterClasses" />
+    <AddClassForm
+      @warning="showAlert = true"
+      :character="character"
+      :characterClasses="characterClasses"
+    />
   </div>
 </template>
 
@@ -28,7 +46,13 @@ export default {
     return {
       character: {},
       characterClasses: [],
+      showAlert: false,
     };
+  },
+  methods: {
+    dismissAlert() {
+      this.showAlert = false;
+    },
   },
   created() {
     CharacterService.getAllCharacters().then((response) => {

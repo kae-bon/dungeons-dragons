@@ -16,7 +16,7 @@
     <div class="mt-2 mb-3 text-center">
       <router-link
         :character="character"
-        class="btn btn-success"
+        class="btn btn-info"
         v-bind:to="{
           name: 'character-details',
           params: { name: character.name },
