@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.CharacterClassDTO;
+import com.techelevator.model.CharacterDTO;
 import com.techelevator.model.ClassSubclassesDTO;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -46,8 +47,6 @@ public class JdbcClassDao implements ClassDao {
     }
 
 
-
-
     @Override
     public void addNewClassAndSubclassByCharacterId(int id, CharacterClassDTO characterClassDTO) {
         String sql = "INSERT INTO character_classes(character_id, class_id, subclass_id, class_level)\n" +
@@ -62,6 +61,30 @@ public class JdbcClassDao implements ClassDao {
             throw new DaoException("Could not insert class for character because some of the provided data" +
                     "isn't correct.");
         }
+    }
+
+    @Override
+    public int editClassSubclassByCharacterId(int id, CharacterClassDTO originalCharacterClassDTO, CharacterClassDTO newCharacterClassDTO) {
+        int numRowsAffected = 0;
+        String sql = "UPDATE character_classes\n" +
+                "SET class_id=(SELECT class_id FROM classes WHERE class_name ILIKE ?), \n" +
+                "subclass_id=(SELECT subclass_id FROM subclasses WHERE subclass_name ILIKE ?), \n" +
+                "class_level=?\n" +
+                "WHERE character_id = ? AND \n" +
+                "class_id=(SELECT class_id FROM classes WHERE class_name ILIKE ?);";
+        try {
+            numRowsAffected = jdbc.update(sql, newCharacterClassDTO.getCharacterClass(),
+                                            newCharacterClassDTO.getSubclass(),
+                                            newCharacterClassDTO.getClassLevel(),
+                                            id, originalCharacterClassDTO.getCharacterClass());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Cannot connect to server - please try again later.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Could not insert class for character because some of the provided data" +
+                    "isn't correct.");
+        }
+
+        return numRowsAffected;
     }
 
     @Override

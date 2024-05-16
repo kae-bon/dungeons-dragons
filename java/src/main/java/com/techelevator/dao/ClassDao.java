@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.CharacterClassDTO;
+import com.techelevator.model.CharacterDTO;
 import com.techelevator.model.ClassSubclassesDTO;
 
 import java.util.List;
@@ -32,4 +33,11 @@ public interface ClassDao {
      * @return List of ClassSubclassesDTOs
      */
     public List<ClassSubclassesDTO> getAllClassesAndSubclasses();
+    /**
+     * retrieves a List of all available classes, including an array of the subclasses
+     * available for said class
+     *
+     * @return List of ClassSubclassesDTOs
+     */
+    public int editClassSubclassByCharacterId(int id, CharacterClassDTO originalCharacterClassDTO, CharacterClassDTO newCharacterClassDTO);
 }
