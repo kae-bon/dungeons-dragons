@@ -141,6 +141,10 @@ img {
   margin-bottom: 2rem;
 }
 
+.input {
+  width: 100%;
+}
+
 @media screen and (min-width: 750px) {
   img {
     width: 50%;
@@ -151,7 +155,7 @@ img {
   }
 
   .input {
-    width: 50%;
+    width: 50% !important;
   }
 }
 </style>

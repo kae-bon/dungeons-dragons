@@ -106,6 +106,7 @@ export default {
         this.classInfo
       )
         .then(() => {
+          this.$store.commit("SHOW_ALERT");
           CharacterService.getAllCharacters()
             .then((response) => {
               this.$store.commit("SET_CHARACTERS", response.data);

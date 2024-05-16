@@ -55,6 +55,7 @@ export default {
     },
   },
   created() {
+    this.showAlert = this.$store.state.showAlert;
     CharacterService.getAllCharacters().then((response) => {
       this.$store.commit("SET_CHARACTERS", response.data);
       this.character = this.character = this.$store.state.characters.find(
