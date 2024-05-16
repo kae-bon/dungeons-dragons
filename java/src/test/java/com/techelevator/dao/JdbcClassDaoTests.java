@@ -57,6 +57,20 @@ public class JdbcClassDaoTests extends BaseDaoTests {
     }
 
     @Test
+    public void edit_class_subclass_of_character() {
+        CharacterClassDTO updated = new CharacterClassDTO("bard", "College of Valor", 2);
+        CharacterClassDTO original = sut.getClassesAndSubclassesByCharacterId(1).get(0);
+
+        int numRows = sut.editClassSubclassByCharacterId(1, original, updated);
+        Assert.assertEquals(1, numRows);
+
+        List<CharacterClassDTO> retrievedClasses = sut.getClassesAndSubclassesByCharacterId(1);
+        Assert.assertTrue(retrievedClasses.size() == 1);
+
+        assertClassSubclassMatch(updated, retrievedClasses.get(0));
+    }
+
+    @Test
     public void get_all_classes_and_subclasses() {
         List<ClassSubclassesDTO> classSubclassesDTOS = sut.getAllClassesAndSubclasses();
         Assert.assertTrue(classSubclassesDTOS.size() == 13);
