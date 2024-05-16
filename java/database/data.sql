@@ -34,7 +34,9 @@ VALUES ('Alchemist', 1), ('Armorer', 1), ('Artillerist', 1), ('Battle Smith', 1)
 ('The Archfey', 12), ('The Celestial', 12), ('The Fathomless', 12), ('The Fiend', 12), ('The Genie', 12),
 ('The Great Old One', 12), ('The Hexblade', 12), ('The Undead', 12), ('The Undying', 12),
 ('Bladesinging', 13), ('Chronurgy Magic', 13), ('Graviturgy Magic', 13), ('Order of Scribes', 13), ('School of Abjuration', 13), ('School of Conjuration', 13),
-('School of Divination', 13), ('School of Enchantment', 13), ('School of Evocation', 13), ('School of Illusion', 13), ('School of Necromancy', 13), ('School of Transmutation', 13), ('War Magic', 13);
+('School of Divination', 13), ('School of Enchantment', 13), ('School of Evocation', 13), ('School of Illusion', 13), ('School of Necromancy', 13), ('School of Transmutation', 13), ('War Magic', 13),
+('Specialty Not Chosen', 1), ('Path Not Chosen', 2), ('College Not Chosen', 3), ('Domain Not Chosen', 4), ('Circle Not Chosen', 5), ('Fighter Archetype Not Chosen', 6), ('Way Not Chosen', 7), ('Oath Not Chosen', 8),
+('Conclave Not Chosen', 9), ('Roguish Archetype Not Chosen', 10), ('Sorcerous Origin Not Chosen', 11), ('Otherworldly Patron Not Chosen', 12), ('Order/School Not Chosen', 13);
 
 INSERT INTO characters (user_id, character_name, character_race, alignment, profile_pic)
 VALUES (1, 'Neme', 'Satyr', 'Chaotic Neutral', 'https://res.cloudinary.com/dccsx3iht/image/upload/c_crop,g_auto,h_500,w_500/v1714150573/x3hhbbomsbf1pa4ybw60.jpg'),
