@@ -41,33 +41,45 @@ public class CharacterController {
     }
 
     @GetMapping(path="/characters/{id}")
-    public CharacterDTO getCharacterById(@PathVariable int id) {
+    public CharacterDTO getCharacterById(@PathVariable("id") int characterId) {
         try {
-            return characterDao.getCharacterById(id);
+            return characterDao.getCharacterById(characterId);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
         }
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping(path="/characters/{id}")
-    public CharacterDTO editCharacterInfo(@PathVariable int id, @RequestBody CharacterDTO character, Principal principal) {
+    public CharacterDTO editCharacterInfo(@PathVariable("id") int characterId, @RequestBody CharacterDTO character, Principal principal) {
         try {
             User user = userDao.getUserByUsername(principal.getName());
             character.setUserId(user.getId());
-            character.setId(id);
+            character.setId(characterId);
             return characterDao.editCharacter(character);
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not edit this character.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not edit this character because some of the provided data isn't valid.");
         }
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path="/characters/{id}/classes")
-    public CharacterDTO addClassSubclassToCharacter(@PathVariable int id, @RequestBody CharacterClassDTO characterClassDTO) {
+    public CharacterDTO addClassSubclassToCharacter(@PathVariable("id") int characterId, @RequestBody CharacterClassDTO characterClassDTO) {
         try {
-            classDao.addNewClassAndSubclassByCharacterId(id, characterClassDTO);
-            return characterDao.getCharacterById(id);
+            classDao.addNewClassAndSubclassByCharacterId(characterId, characterClassDTO);
+            return characterDao.getCharacterById(characterId);
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find this character.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found.");
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping(path="/characters/{id}/classes/{class-name}")
+    public void updateClassSubclassOfCharacter(@PathVariable("id") int characterId, @RequestBody CharacterClassDTO characterClassDTO) {
+        try {
+            classDao.editClassSubclassByCharacterId(characterId, characterClassDTO);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Class entry not found for specified character.");
         }
     }
 }

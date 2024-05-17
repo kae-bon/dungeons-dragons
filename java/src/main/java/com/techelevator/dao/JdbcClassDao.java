@@ -64,19 +64,18 @@ public class JdbcClassDao implements ClassDao {
     }
 
     @Override
-    public int editClassSubclassByCharacterId(int id, CharacterClassDTO originalCharacterClassDTO, CharacterClassDTO newCharacterClassDTO) {
+    public int editClassSubclassByCharacterId(int id, CharacterClassDTO updatedClassDTO) {
         int numRowsAffected = 0;
         String sql = "UPDATE character_classes\n" +
-                "SET class_id=(SELECT class_id FROM classes WHERE class_name ILIKE ?), \n" +
-                "subclass_id=(SELECT subclass_id FROM subclasses WHERE subclass_name ILIKE ?), \n" +
+                "SET subclass_id\n" +
+                "=(SELECT subclass_id FROM subclasses WHERE subclass_name ILIKE ?),\n" +
                 "class_level=?\n" +
                 "WHERE character_id = ? AND \n" +
-                "class_id=(SELECT class_id FROM classes WHERE class_name ILIKE ?);";
+                "class_id \n" +
+                "=(SELECT class_id FROM classes WHERE class_name ILIKE ?);";
         try {
-            numRowsAffected = jdbc.update(sql, newCharacterClassDTO.getCharacterClass(),
-                                            newCharacterClassDTO.getSubclass(),
-                                            newCharacterClassDTO.getClassLevel(),
-                                            id, originalCharacterClassDTO.getCharacterClass());
+            numRowsAffected = jdbc.update(sql, updatedClassDTO.getSubclass(), updatedClassDTO.getClassLevel(),
+                                        id, updatedClassDTO.getCharacterClass());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Cannot connect to server - please try again later.");
         } catch (DataIntegrityViolationException e) {

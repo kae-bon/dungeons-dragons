@@ -39,5 +39,5 @@ public interface ClassDao {
      *
      * @return List of ClassSubclassesDTOs
      */
-    public int editClassSubclassByCharacterId(int id, CharacterClassDTO originalCharacterClassDTO, CharacterClassDTO newCharacterClassDTO);
+    public int editClassSubclassByCharacterId(int id, CharacterClassDTO updatedClassDTO);
 }

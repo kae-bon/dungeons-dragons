@@ -58,10 +58,9 @@ public class JdbcClassDaoTests extends BaseDaoTests {
 
     @Test
     public void edit_class_subclass_of_character() {
-        CharacterClassDTO updated = new CharacterClassDTO("bard", "College of Valor", 2);
-        CharacterClassDTO original = sut.getClassesAndSubclassesByCharacterId(1).get(0);
+        CharacterClassDTO updated = new CharacterClassDTO("sorcerer", "Wild Magic", 2);
 
-        int numRows = sut.editClassSubclassByCharacterId(1, original, updated);
+        int numRows = sut.editClassSubclassByCharacterId(1, updated);
         Assert.assertEquals(1, numRows);
 
         List<CharacterClassDTO> retrievedClasses = sut.getClassesAndSubclassesByCharacterId(1);
