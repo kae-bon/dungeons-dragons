@@ -9527,6 +9527,11 @@ h1,
   font-family: "Staatliches", sans-serif;
 }
 
+a {
+  color: #219ebc;
+  text-decoration: none;
+}
+
 footer {
   background-color: #f4a261;
 }

@@ -28,21 +28,31 @@
     </ul>
     <h1>Manage {{ character.name }}'s Classes</h1>
 
-    <div class="mt-3 mb-5">
-      <button @click="goToNewClassPage" class="btn btn-primary">
-        add class
-      </button>
-    </div>
+    <div>
+      <h2 class="mb-0">current classes</h2>
+      <p class="fst-italic">click a class to edit it</p>
 
-    <div class="">
-      <p class="mb-0 fst-italic">click a class to edit it</p>
-      <button
+      <router-link
+        v-bind:to="{
+          name: 'edit-class',
+          params: {
+            name: character.name,
+            className: charClass.characterClass,
+          },
+        }"
         v-for="charClass in character.classesSubclasses"
         :key="charClass.characterClass"
-        class="btn btn-primary mb-0 d-block"
+        class="currentClass"
       >
-        {{ charClass.subclass }} {{ charClass.characterClass }}, level
+        {{ charClass.subclass }} {{ charClass.characterClass }}, lvl
         {{ charClass.classLevel }}
+      </router-link>
+    </div>
+
+    <div class="mt-5 mb-5">
+      <h2>add new class</h2>
+      <button @click="goToNewClassPage" class="btn btn-primary">
+        add class
       </button>
     </div>
   </div>
@@ -81,6 +91,18 @@ export default {
 <style scoped>
 span {
   font-size: 1rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 0.9rem;
+}
+
+.currentClass {
+  font-size: 1.2rem;
 }
 
 @media screen and (min-width: 650px) {

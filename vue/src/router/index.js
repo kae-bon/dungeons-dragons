@@ -1,17 +1,18 @@
-import { createRouter as createRouter, createWebHistory } from 'vue-router'
-import { useStore } from 'vuex'
+import { createRouter as createRouter, createWebHistory } from "vue-router";
+import { useStore } from "vuex";
 
 // Import components
-import HomeView from '../views/HomeView.vue';
-import LoginView from '../views/LoginView.vue';
-import LogoutView from '../views/LogoutView.vue';
-import RegisterView from '../views/RegisterView.vue';
-import CharactersView from '../views/CharactersView.vue';
-import NotFoundView from '../views/NotFoundView.vue';
-import CharacterDetailsView from '../views/CharacterDetailsView.vue';
-import EnterCharacterInfoView from '../views/EnterCharacterInfoView.vue';
-import ManageClassesView from '../views/ManageClassesView.vue';
-import AddClassView from '../views/AddClassView.vue';
+import HomeView from "../views/HomeView.vue";
+import LoginView from "../views/LoginView.vue";
+import LogoutView from "../views/LogoutView.vue";
+import RegisterView from "../views/RegisterView.vue";
+import CharactersView from "../views/CharactersView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
+import CharacterDetailsView from "../views/CharacterDetailsView.vue";
+import EnterCharacterInfoView from "../views/EnterCharacterInfoView.vue";
+import ManageClassesView from "../views/ManageClassesView.vue";
+import AddClassView from "../views/AddClassView.vue";
+import EditClassView from "../views/EditClassView.vue";
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -23,97 +24,104 @@ import AddClassView from '../views/AddClassView.vue';
  */
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HomeView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
-    path: '/characters',
-    name: 'characters',
+    path: "/characters",
+    name: "characters",
     component: CharactersView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/login",
     name: "login",
     component: LoginView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/logout",
     name: "logout",
     component: LogoutView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/register",
     name: "register",
     component: RegisterView,
     meta: {
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: "/characters/:name",
     name: "character-details",
     component: CharacterDetailsView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/characters/:name/edit",
     name: "edit-character",
     component: EnterCharacterInfoView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/characters/:name/classes",
     name: "manage-classes",
     component: ManageClassesView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     path: "/characters/:name/classes/add-class",
     name: "add-class",
     component: AddClassView,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
-  { path: '/:notfound(.*)*', name: 'not-found', component: NotFoundView },
+  {
+    path: "/characters/:name/classes/:className",
+    name: "edit-class",
+    component: EditClassView,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  { path: "/:notfound(.*)*", name: "not-found", component: NotFoundView },
 ];
 
 // Create the router
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes: routes,
 });
 
 router.beforeEach((to) => {
-
   // Get the Vuex store
   const store = useStore();
 
   // Determine if the route requires Authentication
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  const requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
 
   // If it does and they are not logged in, send the user to "/login"
-  if (requiresAuth && store.state.token === '') {
-    return {name: "login"};
+  if (requiresAuth && store.state.token === "") {
+    return { name: "login" };
   }
   // Otherwise, do nothing and they'll go to their next destination
 });

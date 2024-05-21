@@ -56,7 +56,7 @@
       class="d-flex flex-lg-row column-gap-lg-3 row-gap-2 flex-column align-items-center align-items-lg-stretch"
     >
       <img :src="character.profilePic" class="details-pic" />
-      <div class="w-75 profile d-flex flex-column justify-content-between">
+      <div class="w-100 profile d-flex flex-column justify-content-between">
         <div>
           <h1>{{ character.name }}</h1>
           <p

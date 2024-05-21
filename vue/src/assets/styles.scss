@@ -66,6 +66,11 @@ h1 {
   font-family: "Staatliches", sans-serif;
 }
 
+a {
+  color: $secondary;
+  text-decoration: none;
+}
+
 footer {
   background-color: $orange;
 }

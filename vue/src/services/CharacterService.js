@@ -1,13 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-
   getAllCharacters() {
-    return axios.get('/users/characters');
+    return axios.get("/users/characters");
   },
 
   editCharacter(id, character) {
-    return axios.put(`/characters/${id}`, character)
+    return axios.put(`/characters/${id}`, character);
   },
 
   getCharacterById(id) {
@@ -16,6 +15,12 @@ export default {
 
   addClassSubclassToCharacter(id, classSubclass) {
     return axios.post(`/characters/${id}/classes`, classSubclass);
-  }
+  },
 
-}
+  editClassSubclassByCharacter(id, classSubclass) {
+    return axios.put(
+      `/characters/${id}/classes/${classSubclass.characterClass}`,
+      classSubclass
+    );
+  },
+};
