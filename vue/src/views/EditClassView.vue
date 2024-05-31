@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       character: {},
-      showAlert: false,
+      currentClass: this.$route.params.className,
     };
   },
   methods: {
@@ -57,7 +57,7 @@ export default {
     this.showAlert = this.$store.state.showAlert;
     CharacterService.getAllCharacters().then((response) => {
       this.$store.commit("SET_CHARACTERS", response.data);
-      this.character = this.character = this.$store.state.characters.find(
+      this.character = this.$store.state.characters.find(
         (c) => c.name == this.$route.params.name
       );
       ClassService.getAllClassesAndSubclasses().then((response) => {

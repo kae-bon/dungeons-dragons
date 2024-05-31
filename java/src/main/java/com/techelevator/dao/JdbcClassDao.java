@@ -91,7 +91,6 @@ public class JdbcClassDao implements ClassDao {
         List<ClassSubclassesDTO> classesAndSubclasses = new ArrayList<>();
         String sql = "SELECT class_name\n" +
                 "FROM classes;";
-
         try {
             SqlRowSet results = jdbc.queryForRowSet(sql);
             while (results.next()) {
