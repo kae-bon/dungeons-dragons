@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <form
-      @submit.prevent="addClass()"
+      @submit.prevent="editClass()"
       class="d-flex flex-column align-items-center"
     >
-      <div class="mb-3">
+      <div class="mb-3 input">
         <label for="subclassSelect" class="form-label">choose subclass</label>
         <select
           required
@@ -19,7 +19,7 @@
           </option>
         </select>
       </div>
-      <div class="mb-3">
+      <div class="mb-3 input">
         <label for="level" class="form-label">class level</label>
         <input
           required
@@ -33,7 +33,15 @@
         <p class="form-text">class level must be between 1 and 20</p>
       </div>
 
-      <button type="submit" class="btn btn-primary">add class</button>
+      <button
+        v-if="disableSubmitButton"
+        type="submit"
+        class="btn btn-primary"
+        disabled
+      >
+        add class
+      </button>
+      <button v-else type="submit" class="btn btn-primary">add class</button>
     </form>
   </div>
 </template>
@@ -55,6 +63,39 @@ export default {
       },
     };
   },
+  methods: {
+    // editClass() {
+    //   if (this.editedCharacterClassSubclass.subclass == '') {
+    //     this.editedCharacterClassSubclass.subclass == this.character.subclass
+    //   }
+    //   if (this.editedCharacterClassSubclass.classLevel < 0 ||)
+    // }
+    getCurrentClass() {
+      let currentClass = this.character.classesSubclasses.find(
+        (charClass) => charClass.characterClass === this.class
+      );
+      return currentClass;
+    },
+  },
+  computed: {
+    disableSubmitButton() {
+      const currentClass = this.getCurrentClass();
+      const currentLevel = currentClass.classLevel;
+      const currentSubclass = currentClass.subclass;
+      console.log(currentSubclass);
+      console.log(this.editedCharacterClassSubclass.subclass);
+      console.log(currentLevel);
+      console.log(this.editedCharacterClassSubclass.currentLevel);
+      console.log(currentLevel == this.editedCharacterClassSubclass.classLevel);
+      if (
+        currentSubclass == this.editedCharacterClassSubclass.subclass &&
+        currentLevel == this.editedCharacterClassSubclass.classLevel
+      ) {
+        return true;
+      }
+      return false;
+    },
+  },
   created() {
     ClassService.getSubclassesByClassName(this.class)
       .then((response) => {
@@ -63,14 +104,10 @@ export default {
       .catch((error) => {
         alert("Could not connect to database. Please try again later.");
       });
-    console.log(typeof this.character.classesSubclasses);
-    let currentClass = this.character.classesSubclasses.find(
-      (charClass) => charClass.characterClass === this.class
-    );
+
+    let currentClass = this.getCurrentClass();
     this.editedCharacterClassSubclass.subclass = currentClass.subclass;
-    console.log(currentClass.subclass);
     this.editedCharacterClassSubclass.classLevel = currentClass.classLevel;
-    console.log(currentClass.classLevel);
   },
 };
 </script>
@@ -82,7 +119,7 @@ export default {
 
 @media screen and (min-width: 750px) {
   .input {
-    width: 50%;
+    width: 50% !important;
   }
 }
 </style>
