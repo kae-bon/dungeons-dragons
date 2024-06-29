@@ -9545,4 +9545,10 @@ img.details-pic {
   border-radius: var(--bs-border-radius);
 }
 
+.loadingGif {
+  width: 2rem;
+  height: auto;
+  align-self: center;
+}
+
 /*# sourceMappingURL=styles.css.map */
